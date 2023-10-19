@@ -1,66 +1,120 @@
-body {
-    background-image: url(https://cdn.knownorigin.io/cdn/images/network/1/edition/270375);
-}
-main {
-    margin: 0px;
-}
-/* Main */
-h1 {
-    margin-bottom: 50px;
+@keyframes slideInFromRight {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(0);
+    }
 }
 
-#inicio{
-    text-decoration: none;
-    color: white;
-    background-color: black;
+@keyframes slideInFromLeft {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInFromBottom {
+    0% {
+        transform: translateY(100%);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInFromTop {
+    0% {
+        transform: translateY(-100%);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+@keyframes zoomIn {
+    0% {
+        transform: scale(110%);
+        z-index: 20;
+    }
+    100% {
+        transform: scale(100%);
+        z-index: 1;
+    }
+}
+
+body {
+  background-image: url(https://cdn.knownorigin.io/cdn/images/network/1/edition/270375);
+}
+main {
+  margin: 0px;
+}
+/* Main */
+
+h1 {
+  margin-bottom: 50px;
+}
+
+#inicio {
+  text-decoration: none;
+  color: white;
+  background-color: black;
 }
 
 .tarjeta-inicio > h1 {
-    color: red
+  color: red;
 }
 
 /* Quiz */
 
 form {
     margin: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 #tarjeta-quiz {
+    /* animation: 0.2s ease-out 0s 1 slideInFromRight; */
     backdrop-filter: blur(1px);
     margin: 0px;
+    width: 80%;
     display: flex;
     flex-direction: column;
     align-items: center;
     border-radius: 10px;
     box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
 
+#preguntas-y-respuestas {
+    width: 100%;
 }
 
 h3 {
-    color: rgb(0, 0, 0);
-    background-color: rgb(255, 255, 255);
-    padding: 20px;
+  color: rgb(0, 0, 0);
+  background-color: rgb(255, 255, 255);
+  padding: 20px;
 }
 
 #respuestas {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-    
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 #respuestas > label {
-    color: rgb(15, 15, 15);
-    margin: 20px;
-    padding: 20px 50px;
-    background-color: rgb(255, 255, 255);
-    border-radius: 20px;
+  color: rgb(15, 15, 15);
+  margin: 20px;
+  padding: 20px 50px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 20px;
 }
 
 input[type="radio"] {
-    position: absolute;
-    left: -9999px;
+  position: absolute;
+  left: -9999px;
 }
 
 #botones-navegacion {
@@ -68,4 +122,7 @@ input[type="radio"] {
     margin: 10px;
     display: flex;
     justify-content: space-between;
+}
+#back-button {
+    animation: 0.2s ease-out 0s 1 slideInFromBottom;
 }
