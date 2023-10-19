@@ -1,0 +1,13 @@
+h1 {
+    margin-bottom: 50px;
+}
+
+#inicio{
+    text-decoration: none;
+    color: white;
+    background-color: black;
+}
+
+.tarjeta-inicio > h1 {
+    color: red
+}
