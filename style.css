@@ -1,3 +1,49 @@
+@keyframes slideInFromRight {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInFromLeft {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInFromBottom {
+    0% {
+        transform: translateY(100%);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInFromTop {
+    0% {
+        transform: translateY(-100%);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+@keyframes zoomIn {
+    0% {
+        transform: scale(110%);
+        z-index: 20;
+    }
+    100% {
+        transform: scale(100%);
+        z-index: 1;
+    }
+}
+
 body {
     background-image: url(https://cdn.knownorigin.io/cdn/images/network/1/edition/270375);
 }
@@ -23,16 +69,25 @@ h1 {
 
 form {
     margin: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 #tarjeta-quiz {
+    /* animation: 0.2s ease-out 0s 1 slideInFromRight; */
     backdrop-filter: blur(1px);
     margin: 0px;
+    width: 80%;
     display: flex;
     flex-direction: column;
     align-items: center;
     border-radius: 10px;
     box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
 
+#preguntas-y-respuestas {
+    width: 100%;
 }
 
 h3 {
@@ -68,4 +123,7 @@ input[type="radio"] {
     margin: 10px;
     display: flex;
     justify-content: space-between;
+}
+#back-button {
+    animation: 0.2s ease-out 0s 1 slideInFromBottom;
 }
