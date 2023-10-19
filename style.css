@@ -45,24 +45,25 @@
 }
 
 body {
-    background-image: url(https://cdn.knownorigin.io/cdn/images/network/1/edition/270375);
+  background-image: url(https://cdn.knownorigin.io/cdn/images/network/1/edition/270375);
 }
 main {
-    margin: 0px;
+  margin: 0px;
 }
 /* Main */
+
 h1 {
-    margin-bottom: 50px;
+  margin-bottom: 50px;
 }
 
-#inicio{
-    text-decoration: none;
-    color: white;
-    background-color: black;
+#inicio {
+  text-decoration: none;
+  color: white;
+  background-color: black;
 }
 
 .tarjeta-inicio > h1 {
-    color: red
+  color: red;
 }
 
 /* Quiz */
@@ -91,31 +92,29 @@ form {
 }
 
 h3 {
-    color: rgb(0, 0, 0);
-    background-color: rgb(255, 255, 255);
-    padding: 20px;
+  color: rgb(0, 0, 0);
+  background-color: rgb(255, 255, 255);
+  padding: 20px;
 }
 
 #respuestas {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-    
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 #respuestas > label {
-    color: rgb(15, 15, 15);
-    margin: 20px;
-    padding: 20px 50px;
-    background-color: rgb(255, 255, 255);
-    border-radius: 20px;
+  color: rgb(15, 15, 15);
+  margin: 20px;
+  padding: 20px 50px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 20px;
 }
 
 input[type="radio"] {
-    position: absolute;
-    left: -9999px;
+  position: absolute;
+  left: -9999px;
 }
 
 #botones-navegacion {
