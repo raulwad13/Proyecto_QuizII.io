@@ -46,6 +46,7 @@
 
 body {
     background-image: url(https://cdn.knownorigin.io/cdn/images/network/1/edition/270375);
+    background-size: cover;
 }
 main {
     margin: 0px;
@@ -88,6 +89,8 @@ form {
 
 #preguntas-y-respuestas {
     width: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 h3 {
@@ -105,17 +108,21 @@ h3 {
     
 }
 
-#respuestas > label {
+.answer-button {
     color: rgb(15, 15, 15);
     margin: 20px;
     padding: 20px 50px;
     background-color: rgb(255, 255, 255);
     border-radius: 20px;
+    
 }
-
-input[type="radio"] {
-    position: absolute;
-    left: -9999px;
+.answer-button:hover {
+    background-color: blue;
+    cursor: pointer;
+}
+.answer-button:disabled {
+    cursor: none;
+    background-color: gray;
 }
 
 #botones-navegacion {
