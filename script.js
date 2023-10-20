@@ -60,7 +60,6 @@ function checkAnswers() {
         }
         else if (event.target.innerHTML !== questionsAndAnswers[i].correct_answer) {
           event.target.style.backgroundColor = 'red';
-          event.style.backgroundColor = 'green';
           cancelButtons();
         }
     });
