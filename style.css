@@ -49,21 +49,22 @@ body {
     background-size: cover;
 }
 main {
-    margin: 0px;
+  margin: 0px;
 }
 /* Main */
+
 h1 {
-    margin-bottom: 50px;
+  margin-bottom: 50px;
 }
 
-#inicio{
-    text-decoration: none;
-    color: white;
-    background-color: black;
+#inicio {
+  text-decoration: none;
+  color: white;
+  background-color: black;
 }
 
 .tarjeta-inicio > h1 {
-    color: red
+  color: red;
 }
 
 /* Quiz */
@@ -94,18 +95,16 @@ form {
 }
 
 h3 {
-    color: rgb(0, 0, 0);
-    background-color: rgb(255, 255, 255);
-    padding: 20px;
+  color: rgb(0, 0, 0);
+  background-color: rgb(255, 255, 255);
+  padding: 20px;
 }
 
 #respuestas {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-    
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .answer-button {
