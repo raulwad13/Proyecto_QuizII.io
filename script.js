@@ -62,7 +62,6 @@ function checkAnswers() {
           event.target.style.backgroundColor = 'red';
           event.style.backgroundColor = 'green';
           cancelButtons();
-
         }
     });
   }
