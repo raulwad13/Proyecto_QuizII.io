@@ -1,5 +1,6 @@
+let questionsAndAnswers = [];
 let i = 0;
-let answers = [];
+let score = 0;
 
 async function getQuestions() {
   let response = await fetch(
@@ -10,7 +11,7 @@ async function getQuestions() {
 
 async function startGame() {
   i = 0;
-  let questionsAndAnswers = await getQuestions();
+  questionsAndAnswers = await getQuestions();
   console.log(questionsAndAnswers);
   //pintar primera
   await printQuestion(questionsAndAnswers);
@@ -28,17 +29,12 @@ async function printQuestion(n) {
   console.log(answers);
   document.getElementById(
     "preguntas-y-respuestas"
-  ).innerHTML = `<h3 id="pregunta">${n[i].question}</h3>
-                  <div id="respuestas">
-                      <label for="respuesta1">${answers[0]}</label>
-                      <input type="radio" name="respuesta" id="respuesta1" value="respuesta1">
-                      <label for="respuesta2">${answers[1]}</label>
-                      <input type="radio" name="respuesta" id="respuesta2" value="respuesta2">
-                      <label for="respuesta3">${answers[2]}</label>
-                      <input type="radio" name="respuesta" id="respuesta3" value="respuesta3">
-                      <label for="respuesta4">${answers[3]}</label>
-                      <input type="radio" name="respuesta" id="respuesta4" value="respuesta4">
-                  </div>`;
+  ).innerHTML = ` <h3>${n[i].question}</h3>
+                  <button class="answer-button" type="button">${answers[0]}</button>
+                  <button class="answer-button" type="button">${answers[1]}</button>
+                  <button class="answer-button" type="button">${answers[2]}</button>
+                  <button class="answer-button" type="button">${answers[3]}</button>`;
+  checkAnswers();
 }
 
 // function checkAnswers() {}
@@ -46,4 +42,34 @@ async function printQuestion(n) {
 startGame();
 
 //Eventos
-// document.querySelectorAll(#respuestas ).forEach(addEventListener)
+document.getElementById("next-button").addEventListener("click", (event) => {
+  event.preventDefault();
+  i++;
+  printQuestion(questionsAndAnswers);
+});
+function checkAnswers() {
+  let botonesRespuestas = document.getElementsByClassName("answer-button");
+  console.log(botonesRespuestas);
+  for (let button of botonesRespuestas) {
+    button.addEventListener('click', (event) => {
+        console.log(event.target.innerHTML);
+        if (event.target.innerHTML == questionsAndAnswers[i].correct_answer) {
+          event.target.style.backgroundColor = 'green';
+          score += 100;
+          cancelButtons();
+        }
+        else if (event.target.innerHTML !== questionsAndAnswers[i].correct_answer) {
+          event.target.style.backgroundColor = 'red';
+          event.style.backgroundColor = 'green';
+          cancelButtons();
+
+        }
+    });
+  }
+}
+function cancelButtons() {
+  let botonesRespuestas = document.getElementsByClassName("answer-button");
+  for (let button of botonesRespuestas) {
+    button.disabled = true;
+  }
+}
