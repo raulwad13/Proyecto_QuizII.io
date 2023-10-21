@@ -51,17 +51,19 @@ function checkAnswers() {
   let botonesRespuestas = document.getElementsByClassName("answer-button");
   console.log(botonesRespuestas);
   for (let button of botonesRespuestas) {
-    button.addEventListener('click', (event) => {
-        console.log(event.target.innerHTML);
-        if (event.target.innerHTML == questionsAndAnswers[i].correct_answer) {
-          event.target.style.backgroundColor = 'green';
-          score += 100;
-          cancelButtons();
-        }
-        else if (event.target.innerHTML !== questionsAndAnswers[i].correct_answer) {
-          event.target.style.backgroundColor = 'red';
-          cancelButtons();
-        }
+    button.addEventListener("click", (event) => {
+      console.log(event.target.innerHTML);
+      if (event.target.innerHTML == questionsAndAnswers[i].correct_answer) {
+        event.target.style.backgroundColor = "green";
+        score += 100;
+        cancelButtons();
+      } else if (
+        event.target.innerHTML !== questionsAndAnswers[i].correct_answer
+      ) {
+        event.target.style.backgroundColor = "red";
+        cancelButtons();
+      }
+
     });
   }
 }
@@ -71,3 +73,32 @@ function cancelButtons() {
     button.disabled = true;
   }
 }
+
+//funcion que consigue la fecha actual
+function getCurrentDate() {
+  const currentDate = new Date();
+  const year = currentDate.getFullYear();
+  const month = currentDate.getMonth() + 1; //(0 = January, 1 = February, etc.) sumo + 1
+  const day = currentDate.getDate();
+  const hours = currentDate.getHours();
+  const minutes = currentDate.getMinutes();
+  const seconds = currentDate.getSeconds();
+  const date = `${day}/${month}/${year} - ${hours}:${minutes}:${seconds}`;
+  return date;
+}
+
+//funcion que va a añadir el resultado en local storage <----LLAMAR A FUNCION EN ULTIMO BOTON DE NEXT
+function storeResultsLocal(score) {
+  // Obtener los resultados existentes desde el localstorage, si los hay
+  let existingResults = JSON.parse(localStorage.getItem("Results")) || [];
+
+  // Agregar el nuevo resultado
+  existingResults.push({
+    score: score,
+    date: getCurrentDate(),
+  });
+
+  // Guardar en local storage
+  localStorage.setItem("Results", JSON.stringify(existingResults));
+}
+// storeResultsLocal(score)
