@@ -11,6 +11,7 @@ async function getQuestions() {
 
 async function startGame() {
   i = 0;
+  score = 0;
   questionsAndAnswers = await getQuestions();
   console.log(questionsAndAnswers);
   //pintar primera
@@ -78,7 +79,7 @@ function getCurrentDate() {
 }
 
 //funcion que va a añadir el resultado en local storage <----LLAMAR A FUNCION EN ULTIMO BOTON DE NEXT
-function storeResultsLocal(score) {
+function storeResultsLocal() {
   // Obtener los resultados existentes desde el localstorage, si los hay
   let existingResults = JSON.parse(localStorage.getItem("Results")) || [];
 
