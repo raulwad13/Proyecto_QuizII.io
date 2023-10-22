@@ -60,7 +60,6 @@ function checkAnswers() {
         }
         else if (event.target.innerHTML !== questionsAndAnswers[i].correct_answer) {
           event.target.style.backgroundColor = 'red';
-          event.style.backgroundColor = 'green';
           cancelButtons();
 
         }
@@ -73,3 +72,25 @@ function cancelButtons() {
     button.disabled = true;
   }
 }
+
+
+// Resultado
+
+function finalScore() {
+  window.location.href = "results.html";
+};
+
+ 
+document.getElementById("restart-button").addEventListener("click", () => {
+  window.location.href = "question.html"; // Redirige a "question.html" para volver a jugar.
+});
+
+document.getElementById("next-button").addEventListener("click", () => {
+  i++;
+  if (i < questionsAndAnswers.length) {
+    printQuestion(questionsAndAnswers);
+  } else {
+    // Si es la última pregunta ve a la pantalla de resultado.
+    finalScore();
+  }
+});

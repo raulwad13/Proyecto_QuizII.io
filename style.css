@@ -133,3 +133,16 @@ h3 {
 #back-button {
     animation: 0.2s ease-out 0s 1 slideInFromBottom;
 }
+
+#tarjeta-resultado {
+    text-align: center;
+    padding: 20px;
+    background-color: #fff;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    display: none;
+  }
+  
+  #restart-button {
+    margin-top: 20px;
+  }
