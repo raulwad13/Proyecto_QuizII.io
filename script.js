@@ -1,5 +1,5 @@
 let questionsAndAnswers = [];
-let i = 0;
+let i = 0; //Contador de pregunta actual 0-10
 let score = 0;
 
 async function getQuestions() {
@@ -36,17 +36,6 @@ async function printQuestion(n) {
                   <button class="answer-button" type="button">${answers[3]}</button>`;
   checkAnswers();
 }
-
-// function checkAnswers() {}
-
-startGame();
-
-//Eventos
-document.getElementById("next-button").addEventListener("click", (event) => {
-  event.preventDefault();
-  i++;
-  printQuestion(questionsAndAnswers);
-});
 function checkAnswers() {
   let botonesRespuestas = document.getElementsByClassName("answer-button");
   console.log(botonesRespuestas);
@@ -67,6 +56,7 @@ function checkAnswers() {
     });
   }
 }
+
 function cancelButtons() {
   let botonesRespuestas = document.getElementsByClassName("answer-button");
   for (let button of botonesRespuestas) {
@@ -102,3 +92,15 @@ function storeResultsLocal(score) {
   localStorage.setItem("Results", JSON.stringify(existingResults));
 }
 // storeResultsLocal(score)
+// function checkAnswers() {}
+
+startGame();
+
+//Eventos
+document.getElementById("next-button").addEventListener("click", (event) => {
+  event.preventDefault();
+  i++;
+  printQuestion(questionsAndAnswers);
+});
+
+
