@@ -1,3 +1,7 @@
+let questionsAndAnswers = [];
+let i = 0;
+let score = 0;
+
 async function getQuestions() {
   let response = await fetch(
     `https://opentdb.com/api.php?amount=10&category=15&difficulty=easy&type=multiple`
@@ -6,13 +10,13 @@ async function getQuestions() {
 }
 
 async function startGame() {
-  let questionsAndAnswers = await getQuestions();
+  i = 0;
+  questionsAndAnswers = await getQuestions();
   console.log(questionsAndAnswers);
   //pintar primera
   await printQuestion(questionsAndAnswers);
 }
 
-let i = 0;
 async function printQuestion(n) {
   let answers = [
     n[i].incorrect_answers[0],
@@ -25,27 +29,68 @@ async function printQuestion(n) {
   console.log(answers);
   document.getElementById(
     "preguntas-y-respuestas"
-  ).innerHTML = `<h3 id="pregunta">${n[i].question}</h3>
-    <div id="respuestas">
-        <label>${answers[0]}</label>
-        <input type="radio" name="" id="">
-        <label>${answers[1]}</label>
-        <input type="radio" name="" id="">
-        <label>${answers[2]}</label>
-        <input type="radio" name="" id="">
-        <label>${answers[3]}</label>
-        <input type="radio" name="" id="">
-    </div>`;
-  i++;
+  ).innerHTML = ` <h3>${n[i].question}</h3>
+                  <button class="answer-button" type="button">${answers[0]}</button>
+                  <button class="answer-button" type="button">${answers[1]}</button>
+                  <button class="answer-button" type="button">${answers[2]}</button>
+                  <button class="answer-button" type="button">${answers[3]}</button>`;
+  checkAnswers();
 }
+
+// function checkAnswers() {}
 
 startGame();
 
 //Eventos
-document
-  .getElementById("next-button")
-  .addEventListener("click", () => printQuestion());
+document.getElementById("next-button").addEventListener("click", (event) => {
+  event.preventDefault();
+  i++;
+  printQuestion(questionsAndAnswers);
+});
+function checkAnswers() {
+  let botonesRespuestas = document.getElementsByClassName("answer-button");
+  console.log(botonesRespuestas);
+  for (let button of botonesRespuestas) {
+    button.addEventListener('click', (event) => {
+        console.log(event.target.innerHTML);
+        if (event.target.innerHTML == questionsAndAnswers[i].correct_answer) {
+          event.target.style.backgroundColor = 'green';
+          score += 100;
+          cancelButtons();
+        }
+        else if (event.target.innerHTML !== questionsAndAnswers[i].correct_answer) {
+          event.target.style.backgroundColor = 'red';
+          cancelButtons();
 
-document.getElementById("back-button").addEventListener("click", () => {
-  printQuestion();
+        }
+    });
+  }
+}
+function cancelButtons() {
+  let botonesRespuestas = document.getElementsByClassName("answer-button");
+  for (let button of botonesRespuestas) {
+    button.disabled = true;
+  }
+}
+
+
+// Resultado
+
+function finalScore() {
+  window.location.href = "results.html";
+};
+
+ 
+document.getElementById("restart-button").addEventListener("click", () => {
+  window.location.href = "question.html"; // Redirige a "question.html" para volver a jugar.
+});
+
+document.getElementById("next-button").addEventListener("click", () => {
+  i++;
+  if (i < questionsAndAnswers.length) {
+    printQuestion(questionsAndAnswers);
+  } else {
+    // Si es la última pregunta ve a la pantalla de resultado.
+    finalScore();
+  }
 });
