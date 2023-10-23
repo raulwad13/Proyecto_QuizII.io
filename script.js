@@ -91,6 +91,9 @@ function showScore() {
   console.log(scores);
     resultado.innerHTML = scores[0].score;
 }
+function restartGame() {
+  window.location.href='home.html'
+}
 
 //Empezar startGame() solo si estamos en question.html
 if (window.location.pathname.includes("question.html")) {
@@ -99,8 +102,12 @@ if (window.location.pathname.includes("question.html")) {
 //Empezar showScore() solo si estamos en results.html
 if (window.location.pathname.includes("results.html")) {
   showScore();
+  let restartButton = document.getElementById('restart-button');
+  restartButton.addEventListener('click', (event) => {
+    event.preventDefault();  
+    restartGame();
+  })
 }
-
 
 //Eventos
 

@@ -121,7 +121,7 @@ h3 {
     cursor: pointer;
 }
 .answer-button:disabled {
-    cursor: none;
+    cursor: not-allowed;
     background-color: gray;
 }
 
