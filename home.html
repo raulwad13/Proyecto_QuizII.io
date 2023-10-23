@@ -8,6 +8,30 @@
   </head>
 
   <body>
+    <h2>Firebase Authentication</h2>
+    <h3>Formulario de Registro</h3>
+    <form id ="form1" action="#" method="POST">
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email" placeholder="Introduce email..."><br>
+        <label for="pass">Password:</label><br>
+        <input type="password" id="pass" name="pass" placeholder="Introduce password..."><br>
+        <label for="pass2">Repite password:</label><br>
+        <input type="password" id="pass2" name="pass2" placeholder="Repite password..."><br><br>
+        <input type="submit" value="Enviar">
+    </form>
+
+
+    <h3>Formulario de Login</h3>
+    <form id ="form2" action="#" method="POST">
+        <label for="email2">Email:</label><br>
+        <input type="email" id="email2" name="email2" placeholder="Introduce email..."><br>
+        <label for="pass3">Password:</label><br>
+        <input type="password" id="pass3" name="pass3" placeholder="Introduce password..."><br>
+        <input type="submit" value="Enviar">
+    </form>
+    <h3>Logout</h3>
+    <button id="salir">Logout</button>
+
     <section class="tarjeta-inicio">
       <h1>WELCOME!!</h1>
       <button id="start-button" type="button">Start Game</button>
@@ -20,6 +44,13 @@
       </div>
     </section>
 
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-auth.js"></script>
     <script src="script.js"></script>
   </body>
 </html>
