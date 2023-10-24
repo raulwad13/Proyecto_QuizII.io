@@ -149,3 +149,19 @@ th, td {
 .display-none {
     display: none;
 }
+.orange-background {
+    background-color: orange;
+}
+
+#timer-section {
+    position: absolute;
+    background-color: gray;
+    padding: 5px;
+    border-radius: 5px;
+    right: 20px;
+    z-index: 5;
+}
+#seconds, #minutes {
+    font-size: 40px;
+    color: white;
+}
