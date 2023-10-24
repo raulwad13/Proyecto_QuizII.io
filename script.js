@@ -24,16 +24,24 @@ function printQuestion(n) {
       n[i].incorrect_answers[2],
       n[i].correct_answer,
     ];
-  
+
     answers.sort(() => Math.random() - 0.5);
     console.log(answers);
-    document.getElementById(
-      "preguntas-y-respuestas"
-    ).innerHTML = ` <h3>${i + 1}. ${n[i].question}</h3>
-                    <button class="answer-button" type="button">${answers[0]}</button>
-                    <button class="answer-button" type="button">${answers[1]}</button>
-                    <button class="answer-button" type="button">${answers[2]}</button>
-                    <button class="answer-button" type="button">${answers[3]}</button>`;
+    document.getElementById("preguntas-y-respuestas").innerHTML = ` <h3>${
+      i + 1
+    }. ${n[i].question}</h3>
+                    <button class="answer-button" type="button">${
+                      answers[0]
+                    }</button>
+                    <button class="answer-button" type="button">${
+                      answers[1]
+                    }</button>
+                    <button class="answer-button" type="button">${
+                      answers[2]
+                    }</button>
+                    <button class="answer-button" type="button">${
+                      answers[3]
+                    }</button>`;
     checkAnswers();
   }
 }
@@ -53,7 +61,6 @@ function checkAnswers() {
         event.target.style.backgroundColor = "red";
         cancelButtons();
       }
-
     });
   }
 }
@@ -77,7 +84,7 @@ function getCurrentDate() {
 function storeResultsLocal() {
   // Obtener los resultados existentes desde el localstorage, si los hay
   let existingResults = JSON.parse(localStorage.getItem("Results")) || [];
-  let usuarioActual = localStorage.getItem("Usuario")
+  let usuarioActual = localStorage.getItem("Usuario");
   // Agregar el nuevo resultado
   existingResults.push({
     user: usuarioActual,
@@ -89,28 +96,31 @@ function storeResultsLocal() {
 }
 async function storeResultsFirebase(result) {
   console.log(result);
-  await db.collection("userScores").add({
-    user: result.user,
-    score: result.score,
-    date: result.date
-}).then((docRef) => {
-  console.log("Document written with ID: ", docRef.id);
-})
-.catch((error) => {
-  console.error("Error adding document: ", error);
-});
+  await db
+    .collection("userScores")
+    .add({
+      user: result.user,
+      score: result.score,
+      date: result.date,
+    })
+    .then((docRef) => {
+      console.log("Document written with ID: ", docRef.id);
+    })
+    .catch((error) => {
+      console.error("Error adding document: ", error);
+    });
 }
 function getLocalStorage(item) {
-  return JSON.parse(localStorage.getItem(item))
+  return JSON.parse(localStorage.getItem(item));
 }
 function showScore() {
-  let resultado = document.getElementById('resultado'); 
+  let resultado = document.getElementById("resultado");
   let scores = JSON.parse(localStorage.getItem("Results")).reverse(); //Le doy la vuelta para acceder al ultimo resultado siempre
   console.log(scores);
-    resultado.innerHTML = scores[0].score;
+  resultado.innerHTML = scores[0].score;
 }
 function restartGame() {
-  window.location.href='home.html'
+  window.location.href = "home.html";
 }
 
 function checkEmail(email) {
@@ -129,23 +139,23 @@ if (window.location.pathname.includes("question.html")) {
 //Empezar showScore() solo si estamos en results.html
 if (window.location.pathname.includes("results.html")) {
   showScore();
-  let restartButton = document.getElementById('restart-button');
-  restartButton.addEventListener('click', (event) => {
-    event.preventDefault();  
+  let restartButton = document.getElementById("restart-button");
+  restartButton.addEventListener("click", (event) => {
+    event.preventDefault();
     restartGame();
-  })
+  });
 }
 
 //Eventos/////////////////////////////////////////////////////////////
 
 //Boton Start
-const startButton = document.querySelector('#start-button');
+const startButton = document.querySelector("#start-button");
 if (startButton) {
   startButton.addEventListener("click", (event) => {
     event.preventDefault();
     // startGame();  Ya se ejecuta al cambiar de html
-    window.location.href = 'question.html';
-  })
+    window.location.href = "question.html";
+  });
 }
 //Boton Next
 const nextButton = document.getElementById("next-button");
@@ -155,13 +165,12 @@ if (nextButton) {
     if (i < 9) {
       i++;
       printQuestion(questionsAndAnswers);
-    }
-    else if (i >= 9) {
-      console.log('Hello');
+    } else if (i >= 9) {
+      console.log("Hello");
       storeResultsLocal();
-      let lastResult = getLocalStorage('Results').pop();
+      let lastResult = getLocalStorage("Results").pop();
       await storeResultsFirebase(lastResult);
-      window.location.href='results.html'
+      window.location.href = "results.html";
     }
   });
 }
@@ -173,13 +182,13 @@ const firebaseConfig = {
   projectId: "quiz-ii-the-revenge",
   storageBucket: "quiz-ii-the-revenge.appspot.com",
   messagingSenderId: "169985803724",
-  appId: "1:169985803724:web:8fd4970097e79eb0348969"
+  appId: "1:169985803724:web:8fd4970097e79eb0348969",
 };
 
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);// Inicializaar app Firebase
+firebase.initializeApp(firebaseConfig); // Inicializaar app Firebase
 
-const db = firebase.firestore();// db representa mi BBDD //inicia Firestore
+const db = firebase.firestore(); // db representa mi BBDD //inicia Firestore
 
 //
 
@@ -232,16 +241,15 @@ const signUpUser = (email, password) => {
     .then((userCredential) => {
       // Signed in
       let user = userCredential.user;
-      console.log(`se ha registrado ${user.email} ID:${user.uid}`)
-      alert(`se ha registrado ${user.email} ID:${user.uid}`)
+      console.log(`se ha registrado ${user.email} ID:${user.uid}`);
+      alert(`se ha registrado ${user.email} ID:${user.uid}`);
       // ...
       // Guarda El usuario en Firestore
       createUser({
         id: user.uid,
         email: user.email,
-        message:"hola!"
+        message: "hola!",
       });
-
     })
     .catch((error) => {
       let errorCode = error.code;
@@ -253,58 +261,75 @@ const signUpUser = (email, password) => {
 //"alex@demo.com","123456"
 if (window.location.pathname.includes("home.html")) {
   document.getElementById("form1").addEventListener("submit", function (event) {
-    event.preventDefault();/////AÑADIR VALIDACION
+    event.preventDefault(); /////AÑADIR VALIDACION
     if (checkEmail(event.target.elements.email.value)) {
       let email = event.target.elements.email.value;
-    } else {alert('Introduce un correo válido')}
+    } else {
+      alert("Introduce un correo válido");
+    }
     if (checkPswd(event.target.elements.pass.value)) {
-      let pass = event.target.elements.pass.value
-    } else {alert('Introduce una contraseña con al menos 6 caracteres, 1 mayúscula, 1 minúscula y 1 número')}
+      let pass = event.target.elements.pass.value;
+    } else {
+      alert(
+        "Introduce una contraseña con al menos 6 caracteres, 1 mayúscula, 1 minúscula y 1 número"
+      );
+    }
     let pass2 = event.target.elements.pass2.value;
-  
+
     pass === pass2 ? signUpUser(email, pass) : alert("error password");
-  })
+  });
 }
 
-
 const signInUser = (email, password) => {
-  firebase.auth().signInWithEmailAndPassword(email, password)
+  firebase
+    .auth()
+    .signInWithEmailAndPassword(email, password)
     .then((userCredential) => {
       // Signed in
       let user = userCredential.user;
-      console.log(`se ha logado ${user.email} ID:${user.uid}`)
-      alert(`se ha logado ${user.email} ID:${user.uid}`)
+      console.log(`se ha logado ${user.email} ID:${user.uid}`);
+      alert(`se ha logado ${user.email} ID:${user.uid}`);
       console.log("USER", user);
     })
     .catch((error) => {
       let errorCode = error.code;
       let errorMessage = error.message;
-      console.log(errorCode)
-      console.log(errorMessage)
+      console.log(errorCode);
+      console.log(errorMessage);
     });
-}
+};
 
 const signOut = () => {
   let user = firebase.auth().currentUser;
 
-  firebase.auth().signOut().then(() => {
-    console.log("Sale del sistema: " + user.email)
-  }).catch((error) => {
-    console.log("hubo un error: " + error);
-  });
-}
+  firebase
+    .auth()
+    .signOut()
+    .then(() => {
+      console.log("Sale del sistema: " + user.email);
+    })
+    .catch((error) => {
+      console.log("hubo un error: " + error);
+    });
+};
 
 if (window.location.pathname.includes("home.html")) {
   document.getElementById("form2").addEventListener("submit", function (event) {
     event.preventDefault();
-    if (checkEmail(event.target.elements.email2.value))  {
+    if (checkEmail(event.target.elements.email2.value)) {
       let email = event.target.elements.email2.value;
-    } else {alert('Introduce un email valido')};
+    } else {
+      alert("Introduce un email valido");
+    }
     if (checkPswd(event.target.elements.pass3.value)) {
       let pass = event.target.elements.pass3.value;
-    } else {alert('Introduce una contraseña con al menos 6 caracteres, 1 mayúscula, 1 minúscula y 1 número')}
-    signInUser(email, pass)
-  })
+    } else {
+      alert(
+        "Introduce una contraseña con al menos 6 caracteres, 1 mayúscula, 1 minúscula y 1 número"
+      );
+    }
+    signInUser(email, pass);
+  });
   document.getElementById("salir").addEventListener("click", signOut);
 }
 
@@ -316,6 +341,54 @@ firebase.auth().onAuthStateChanged(function (user) {
     localStorage.setItem("Usuario", user.email); //Guardo usuario actual en local storage
   } else {
     console.log("no hay usuarios en el sistema");
-    
   }
 });
+
+// Gráfica:
+
+const printGrafic =() => {
+      db.collection("userScores")//Si no existe esta colección te la crea.
+        .add(score)
+        .then((docRef) => {
+          console.log("Document written with ID: ", docRef.id)
+          readAll();
+        })
+        .catch((error) => console.error("Error adding document: ", error));
+    };
+
+const fireBaseData = () => {
+  db.collection("userScores")
+  .get()
+  .then((takeData) => {
+    takeData.forEach((doc) => {
+      printGrafic(doc.data().url, doc.id)
+    });
+  })
+  .catch(() => console.log('Error reading documents'));
+};
+    let dates = [];
+    let scores = [];
+
+    let data = {
+      // A labels array that can contain any sort of values
+      labels: dates,
+      // Our series array that contains series objects or in this case series data arrays
+      series: [score],
+    };
+    const options = {
+      axisY: {
+        onlyInteger: true,
+      },
+    };
+    tries.forEach((game) => {
+      dates.push(game.date);
+      scores.push(game.score);
+    });
+    console.log(data);
+
+    // Create a new line chart object where as first parameter we pass in a selector
+    // that is resolving to our chart container element. The Second parameter
+    // is the actual data object.
+
+    new Chartist.Line(".ct-chart", data, options);
+ 
