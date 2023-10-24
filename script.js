@@ -113,6 +113,15 @@ function restartGame() {
   window.location.href='home.html'
 }
 
+function checkEmail(email) {
+  let regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+  return regex.test(email);
+}
+function checkPswd(password) {
+  let regex = /^((?=\S*?[A-Z])(?=\S*?[a-z])(?=\S*?[0-9]).{6,})\S$/;
+  return regex.test(password);
+}
+
 //Empezar startGame() solo si estamos en question.html
 if (window.location.pathname.includes("question.html")) {
   startGame();
@@ -127,7 +136,7 @@ if (window.location.pathname.includes("results.html")) {
   })
 }
 
-//Eventos
+//Eventos/////////////////////////////////////////////////////////////
 
 //Boton Start
 const startButton = document.querySelector('#start-button');
@@ -157,7 +166,7 @@ if (nextButton) {
   });
 }
 
-// Your web app's Firebase configuration
+// Your web app's Firebase configuration////////////////////////////////
 const firebaseConfig = {
   apiKey: "AIzaSyAvBfKEeMvxp9fOpwFofn40EZM1JP8qIPs",
   authDomain: "quiz-ii-the-revenge.firebaseapp.com",
@@ -244,9 +253,13 @@ const signUpUser = (email, password) => {
 //"alex@demo.com","123456"
 if (window.location.pathname.includes("home.html")) {
   document.getElementById("form1").addEventListener("submit", function (event) {
-    event.preventDefault();
-    let email = event.target.elements.email.value;
-    let pass = event.target.elements.pass.value;
+    event.preventDefault();/////AÑADIR VALIDACION
+    if (checkEmail(event.target.elements.email.value)) {
+      let email = event.target.elements.email.value;
+    } else {alert('Introduce un correo válido')}
+    if (checkPswd(event.target.elements.pass.value)) {
+      let pass = event.target.elements.pass.value
+    } else {alert('Introduce una contraseña con al menos 6 caracteres, 1 mayúscula, 1 minúscula y 1 número')}
     let pass2 = event.target.elements.pass2.value;
   
     pass === pass2 ? signUpUser(email, pass) : alert("error password");
@@ -284,8 +297,12 @@ const signOut = () => {
 if (window.location.pathname.includes("home.html")) {
   document.getElementById("form2").addEventListener("submit", function (event) {
     event.preventDefault();
-    let email = event.target.elements.email2.value;
-    let pass = event.target.elements.pass3.value;
+    if (checkEmail(event.target.elements.email2.value))  {
+      let email = event.target.elements.email2.value;
+    } else {alert('Introduce un email valido')};
+    if (checkPswd(event.target.elements.pass3.value)) {
+      let pass = event.target.elements.pass3.value;
+    } else {alert('Introduce una contraseña con al menos 6 caracteres, 1 mayúscula, 1 minúscula y 1 número')}
     signInUser(email, pass)
   })
   document.getElementById("salir").addEventListener("click", signOut);
