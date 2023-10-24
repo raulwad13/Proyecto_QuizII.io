@@ -77,16 +77,34 @@ function getCurrentDate() {
 function storeResultsLocal() {
   // Obtener los resultados existentes desde el localstorage, si los hay
   let existingResults = JSON.parse(localStorage.getItem("Results")) || [];
+  let usuarioActual = localStorage.getItem("Usuario")
   // Agregar el nuevo resultado
   existingResults.push({
+    user: usuarioActual,
     score: score,
     date: getCurrentDate(),
   });
   // Guardar en local storage
   localStorage.setItem("Results", JSON.stringify(existingResults));
 }
+async function storeResultsFirebase(result) {
+  console.log(result);
+  await db.collection("userScores").add({
+    user: result.user,
+    score: result.score,
+    date: result.date
+}).then((docRef) => {
+  console.log("Document written with ID: ", docRef.id);
+})
+.catch((error) => {
+  console.error("Error adding document: ", error);
+});
+}
+function getLocalStorage(item) {
+  return JSON.parse(localStorage.getItem(item))
+}
 function showScore() {
-  let resultado = document.getElementById('resultado'); //Obtengo la lista de scores guardada en local storage
+  let resultado = document.getElementById('resultado'); 
   let scores = JSON.parse(localStorage.getItem("Results")).reverse(); //Le doy la vuelta para acceder al ultimo resultado siempre
   console.log(scores);
     resultado.innerHTML = scores[0].score;
@@ -123,18 +141,164 @@ if (startButton) {
 //Boton Next
 const nextButton = document.getElementById("next-button");
 if (nextButton) {
-  nextButton.addEventListener("click", (event) => {
-    event.preventDefault();
+  nextButton.addEventListener("click", async (event) => {
+    // event.preventDefault();
     if (i < 9) {
       i++;
       printQuestion(questionsAndAnswers);
     }
     else if (i >= 9) {
+      console.log('Hello');
       storeResultsLocal();
+      let lastResult = getLocalStorage('Results').pop();
+      await storeResultsFirebase(lastResult);
       window.location.href='results.html'
     }
   });
 }
 
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyAvBfKEeMvxp9fOpwFofn40EZM1JP8qIPs",
+  authDomain: "quiz-ii-the-revenge.firebaseapp.com",
+  projectId: "quiz-ii-the-revenge",
+  storageBucket: "quiz-ii-the-revenge.appspot.com",
+  messagingSenderId: "169985803724",
+  appId: "1:169985803724:web:8fd4970097e79eb0348969"
+};
+
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);// Inicializaar app Firebase
+
+const db = firebase.firestore();// db representa mi BBDD //inicia Firestore
+
+//
+
+/**************Firebase Auth*****************/
+
+const createUser = (user) => {
+  db.collection("users")
+    .add(user)
+    .then((docRef) => console.log("Document written with ID: ", docRef.id))
+    .catch((error) => console.error("Error adding document: ", error));
+};
+
+const readAllUsers = (born) => {
+  db.collection("users")
+    .where("first", "==", born)
+    .get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        console.log(doc.data());
+      });
+    });
+};
+//readAllUsers(1224)
+
+// Read ONE
+function readOne(id) {
+  db.collection("users")
+    .doc(id)
+    .get()
+    .then((doc) => {
+      if (doc.exists) {
+        console.log("Document data:", doc.data());
+      } else {
+        // doc.data() will be undefined in this case
+        console.log("No such document!");
+      }
+    })
+    .catch((error) => {
+      console.log("Error getting document:", error);
+    });
+}
+//readOne("690WYQfTZUoEFnq5q1Ov");
+
+/**************Firebase Auth*****************/
+
+const signUpUser = (email, password) => {
+  firebase
+    .auth()
+    .createUserWithEmailAndPassword(email, password)
+    .then((userCredential) => {
+      // Signed in
+      let user = userCredential.user;
+      console.log(`se ha registrado ${user.email} ID:${user.uid}`)
+      alert(`se ha registrado ${user.email} ID:${user.uid}`)
+      // ...
+      // Guarda El usuario en Firestore
+      createUser({
+        id: user.uid,
+        email: user.email,
+        message:"hola!"
+      });
+
+    })
+    .catch((error) => {
+      let errorCode = error.code;
+      let errorMessage = error.message;
+      console.log("Error en el sistema" + error.message);
+    });
+};
+
+//"alex@demo.com","123456"
+if (window.location.pathname.includes("home.html")) {
+  document.getElementById("form1").addEventListener("submit", function (event) {
+    event.preventDefault();
+    let email = event.target.elements.email.value;
+    let pass = event.target.elements.pass.value;
+    let pass2 = event.target.elements.pass2.value;
+  
+    pass === pass2 ? signUpUser(email, pass) : alert("error password");
+  })
+}
 
 
+const signInUser = (email, password) => {
+  firebase.auth().signInWithEmailAndPassword(email, password)
+    .then((userCredential) => {
+      // Signed in
+      let user = userCredential.user;
+      console.log(`se ha logado ${user.email} ID:${user.uid}`)
+      alert(`se ha logado ${user.email} ID:${user.uid}`)
+      console.log("USER", user);
+    })
+    .catch((error) => {
+      let errorCode = error.code;
+      let errorMessage = error.message;
+      console.log(errorCode)
+      console.log(errorMessage)
+    });
+}
+
+const signOut = () => {
+  let user = firebase.auth().currentUser;
+
+  firebase.auth().signOut().then(() => {
+    console.log("Sale del sistema: " + user.email)
+  }).catch((error) => {
+    console.log("hubo un error: " + error);
+  });
+}
+
+if (window.location.pathname.includes("home.html")) {
+  document.getElementById("form2").addEventListener("submit", function (event) {
+    event.preventDefault();
+    let email = event.target.elements.email2.value;
+    let pass = event.target.elements.pass3.value;
+    signInUser(email, pass)
+  })
+  document.getElementById("salir").addEventListener("click", signOut);
+}
+
+// Listener de usuario en el sistema
+// Controlar usuario logado
+firebase.auth().onAuthStateChanged(function (user) {
+  if (user) {
+    console.log(`Está en el sistema:${user.email} ${user.uid}`);
+    localStorage.setItem("Usuario", user.email); //Guardo usuario actual en local storage
+  } else {
+    console.log("no hay usuarios en el sistema");
+    
+  }
+});
