@@ -17,6 +17,8 @@ async function startGame() {
   printQuestion(questionsAndAnswers);
 }
 function printQuestion(n) {
+  let nextButton = document.getElementById("next-button");
+  nextButton.classList.toggle("display-none");
   if (questionsAndAnswers && questionsAndAnswers[i]) {
     let answers = [
       n[i].incorrect_answers[0],
@@ -55,11 +57,15 @@ function checkAnswers() {
         event.target.style.backgroundColor = "green";
         score += 100;
         cancelButtons();
+        let nextButton = document.getElementById("next-button");
+        nextButton.classList.toggle("display-none");
       } else if (
         event.target.innerHTML !== questionsAndAnswers[i].correct_answer
       ) {
         event.target.style.backgroundColor = "red";
         cancelButtons();
+        let nextButton = document.getElementById("next-button");
+        nextButton.classList.toggle("display-none");
       }
     });
   }
@@ -115,9 +121,13 @@ function getLocalStorage(item) {
 }
 function showScore() {
   let resultado = document.getElementById("resultado");
+
+  let username = document.getElementById("score-username");
   let scores = JSON.parse(localStorage.getItem("Results")).reverse(); //Le doy la vuelta para acceder al ultimo resultado siempre
   console.log(scores);
   resultado.innerHTML = scores[0].score;
+  username.innerHTML = `Enhorabuena, ${scores[0].user}!`;
+
 }
 function restartGame() {
   window.location.href = "home.html";
@@ -261,19 +271,15 @@ const signUpUser = (email, password) => {
 //"alex@demo.com","123456"
 if (window.location.pathname.includes("home.html")) {
   document.getElementById("form1").addEventListener("submit", function (event) {
-    event.preventDefault(); /////AÑADIR VALIDACION
+
+    event.preventDefault();
     if (checkEmail(event.target.elements.email.value)) {
-      let email = event.target.elements.email.value;
-    } else {
-      alert("Introduce un correo válido");
-    }
+      var email = event.target.elements.email.value;
+    } else {alert('Introduce un correo válido')}
     if (checkPswd(event.target.elements.pass.value)) {
-      let pass = event.target.elements.pass.value;
-    } else {
-      alert(
-        "Introduce una contraseña con al menos 6 caracteres, 1 mayúscula, 1 minúscula y 1 número"
-      );
-    }
+      var pass = event.target.elements.pass.value
+    } else {alert('Introduce una contraseña con al menos 6 caracteres, 1 mayúscula, 1 minúscula y 1 número')}
+
     let pass2 = event.target.elements.pass2.value;
 
     pass === pass2 ? signUpUser(email, pass) : alert("error password");
@@ -316,20 +322,15 @@ const signOut = () => {
 if (window.location.pathname.includes("home.html")) {
   document.getElementById("form2").addEventListener("submit", function (event) {
     event.preventDefault();
-    if (checkEmail(event.target.elements.email2.value)) {
-      let email = event.target.elements.email2.value;
-    } else {
-      alert("Introduce un email valido");
-    }
+
+    if (checkEmail(event.target.elements.email2.value))  {
+      var email = event.target.elements.email2.value;
+    } else {alert('Introduce un email valido')};
     if (checkPswd(event.target.elements.pass3.value)) {
-      let pass = event.target.elements.pass3.value;
-    } else {
-      alert(
-        "Introduce una contraseña con al menos 6 caracteres, 1 mayúscula, 1 minúscula y 1 número"
-      );
-    }
-    signInUser(email, pass);
-  });
+      var pass = event.target.elements.pass3.value;
+    } else {alert('Introduce una contraseña con al menos 6 caracteres, 1 mayúscula, 1 minúscula y 1 número')}
+    signInUser(email, pass)
+  })
   document.getElementById("salir").addEventListener("click", signOut);
 }
 
@@ -343,6 +344,7 @@ firebase.auth().onAuthStateChanged(function (user) {
     console.log("no hay usuarios en el sistema");
   }
 });
+
 
 // Gráfica:
 
@@ -392,3 +394,4 @@ const fireBaseData = () => {
 
     new Chartist.Line(".ct-chart", data, options);
  
+
