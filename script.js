@@ -86,7 +86,7 @@ function storeResultsLocal() {
   localStorage.setItem("Results", JSON.stringify(existingResults));
 }
 function showScore() {
-  let resultado = document.getElementById('resultado'); //Obtengo la lista de scores guardada en local storage
+  let resultado = document.getElementById('resultado'); 
   let scores = JSON.parse(localStorage.getItem("Results")).reverse(); //Le doy la vuelta para acceder al ultimo resultado siempre
   console.log(scores);
     resultado.innerHTML = scores[0].score;
@@ -131,10 +131,26 @@ if (nextButton) {
     }
     else if (i >= 9) {
       storeResultsLocal();
+      storeResultsFireBase();
       window.location.href='results.html'
     }
   });
 }
 
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyAvBfKEeMvxp9fOpwFofn40EZM1JP8qIPs",
+  authDomain: "quiz-ii-the-revenge.firebaseapp.com",
+  projectId: "quiz-ii-the-revenge",
+  storageBucket: "quiz-ii-the-revenge.appspot.com",
+  messagingSenderId: "169985803724",
+  appId: "1:169985803724:web:8fd4970097e79eb0348969"
+};
 
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+
+function storeResultsFireBase(){
+  let scores = JSON.parse(localStorage.getItem("Results"));
+}
 

@@ -78,7 +78,7 @@ form {
 }
 #tarjeta-quiz {
     /* animation: 0.2s ease-out 0s 1 slideInFromRight; */
-    backdrop-filter: blur(5px);
+    backdrop-filter: blur(1px);
     margin: 0px;
     padding: 40px;
     width: 80%;
@@ -131,6 +131,10 @@ h3 {
     display: flex;
     justify-content: space-between;
 }
+/* #next-button{
+
+} */
+
 #back-button {
     animation: 0.2s ease-out 0s 1 slideInFromBottom;
 }
