@@ -80,6 +80,12 @@ function checkAnswers() {
       ) {
         event.target.style.backgroundColor = "red";
         cancelButtons();
+
+        for (let button of botonesRespuestas) {
+          if (button.innerHTML == questionsAndAnswers[i].correct_answer) {
+            button.style.backgroundColor = "green";
+          }
+        }
         let nextButton = document.getElementById("next-button");
         nextButton.classList.toggle("display-none"); //Muestro boton next
       }
@@ -159,13 +165,12 @@ async function showRanking() {
   let rankingTable = document.getElementById("ranking-table");
   let rankingPosition = 1;
   ranking.forEach((user) => {
-    rankingTable.innerHTML += 
-      `<tr>
+    rankingTable.innerHTML += `<tr>
         <td>${rankingPosition}.</td>
         <td>${user.score}</td>
         <td>${user.user.slice(0, -10)}</td>
       </tr>`;
-      rankingPosition++;
+    rankingPosition++;
   });
 }
 function restartGame() {
