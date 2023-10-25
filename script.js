@@ -150,7 +150,7 @@ function getLocalStorage(item) {
   return JSON.parse(localStorage.getItem(item));
 }
 function showScore() {
-  let resultado = document.getElementById("resultado");
+  let score = document.getElementById("score");
   let username = document.getElementById("score-username");
   let scores = JSON.parse(localStorage.getItem("Results")).reverse(); //Le doy la vuelta para acceder al ultimo resultado siempre
   console.log(scores);
@@ -499,3 +499,8 @@ const printGrafic = async (userName) => {
 };
 
 printGrafic();
+
+// Boton musica
+
+// const audio = document.getElementsByClassName('music');
+// audio.volume = 0.1

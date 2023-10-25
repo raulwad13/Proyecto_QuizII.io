@@ -72,6 +72,28 @@ main {
   justify-content: space-between;
   align-items: center;
 }
+audio{
+display: none;
+}
+.audioButton {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background-color: #0000;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  z-index: 99;
+}
+.audioButton img{
+  top: 30px;
+  right: 30px;
+}
+
+.audioButton {
+  width: 5em;
+}
+
 #salir {
   font-family: 'akira';
   font-size: 1em;
@@ -186,27 +208,21 @@ h1 {
 }
 
 h2 {
-  font-family: "akira";
   text-align: center;
-  margin: 40px;
-  background-color: rgb(255, 255, 255);
-  padding-top: 200px;
-  padding: 20px;
+  font-family: 'akira';
+  font-size: 1em;
+  color: rgb(15, 15, 15);
+  background-color: rgba(10,189,198, 0.75);
+  backdrop-filter: blur(10px);
+  border: 5px solid black;
+  box-shadow: 2px 2px 2px black;
+  padding: 20px 50px;
+  border-radius: 20px;
 }
 h1{
   color: rgb(224, 10, 207);
   text-shadow: 2px 2px 2px aquamarine;
 }
-h2 {
-  font-family: "akira";
-  text-align: center;
-  margin: 40px;
-  color: rgb(224, 10, 207);
-  background-color: rgb(255, 255, 255);
-  padding: 20px;
-  padding-top: 2;
-}
-
 
 #inicio {
   text-decoration: none;
@@ -321,10 +337,23 @@ form {
   animation: 0.2s ease-out 0s 1 slideInFromBottom;
 }
 #ranking {
-  background-color: white;
+  font-family: 'akira';
+  text-align: center;
+  font-weight: 400;
+  margin: 40px;
+  padding: 10px;
+  background-color: black;
+  border: 2px solid #ea00d9;
+  text-shadow: 1px 1px 5px #ea00d9;
+  box-shadow: 10px 10px 2px #ea00d9;
+  color: #ffffff;
+  border-radius: 20px;
+  min-height: 10vh;
+  font-size: 1.5em;
+  padding: 20px;
+  overflow-y: hidden;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
 }
 th,
@@ -342,11 +371,25 @@ td {
   align-items: center;
 }
 #score-username {
-  align-items: center;
-  background-color: aliceblue;
-  border: 2cm black;
+  font-family: 'akira';
+  text-align: center;
+  font-weight: 400;
+  margin: 40px;
+  padding: 10px;
+  background-color: black;
+  border: 2px solid #ea00d9;
+  text-shadow: 1px 1px 5px #ea00d9;
+  box-shadow: 10px 10px 2px #ea00d9;
+  color: #ffffff;
+  border-radius: 20px;
+  min-height: 10vh;
+  font-size: 1.5em;
+  padding: 20px;
+  overflow-y: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
-
 
 #resultado {
   margin: 40px;
@@ -387,4 +430,17 @@ td {
     width: 40%;
     font-size: 2em;
   }
+}
+
+#tu_score{
+  text-align: center;
+  font-family: 'akira';
+  font-size: 1em;
+  color: rgb(15, 15, 15);
+  background-color: rgba(10,189,198, 0.75);
+  backdrop-filter: blur(10px);
+  border: 5px solid black;
+  box-shadow: 2px 2px 2px black;
+  padding: 20px 50px;
+  border-radius: 20px;
 }
