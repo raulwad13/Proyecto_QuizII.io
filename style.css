@@ -72,7 +72,7 @@ main {
   justify-content: space-between;
   align-items: center;
 }
-audio{
+/* audio{
 display: none;
 }
 .audioButton {
@@ -92,7 +92,7 @@ display: none;
 
 .audioButton {
   width: 5em;
-}
+} */
 
 #salir {
   font-family: 'akira';
