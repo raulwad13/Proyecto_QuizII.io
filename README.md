@@ -1,6 +1,6 @@
 # # Quiz Project II
 
-![Arcade Quiz](arcade-quiz-cover.jpg)
+![Arcade Quiz](https://img.freepik.com/psd-premium/efecto-texto-videojuego_23-2150702923.jpg)
 
 This project is a quiz game about video games developed by Raul Awad and Alejandro Sanchez. The game has a retro arcade style and uses web technologies like HTML, CSS, JavaScript, and Firebase to create a fun and challenging experience.
 
