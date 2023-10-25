@@ -156,7 +156,6 @@ function showScore() {
   console.log(scores);
   score.innerHTML = scores[0].score;
   username.innerHTML = `Enhorabuena, ${scores[0].user}!`;
-
 }
 async function showRanking() {
   let ranking = [];
@@ -286,22 +285,22 @@ const readAllUsers = (born) => {
 //readAllUsers(1224)
 
 // Read ONE
-function readOne(id) {
-  db.collection("users")
-    .doc(id)
-    .get()
-    .then((doc) => {
-      if (doc.exists) {
-        console.log("Document data:", doc.data());
-      } else {
-        // doc.data() will be undefined in this case
-        console.log("No such document!");
-      }
-    })
-    .catch((error) => {
-      console.log("Error getting document:", error);
-    });
-}
+// function readOne(id) {
+//   db.collection("users")
+//     .doc(id)
+//     .get()
+//     .then((doc) => {
+//       if (doc.exists) {
+//         console.log("Document data:", doc.data());
+//       } else {
+//         // doc.data() will be undefined in this case
+//         console.log("No such document!");
+//       }
+//     })
+//     .catch((error) => {
+//       console.log("Error getting document:", error);
+//     });
+// }
 //readOne("690WYQfTZUoEFnq5q1Ov");
 
 /**************Firebase Auth*****************/
@@ -333,7 +332,6 @@ const signUpUser = (email, password) => {
 //"alex@demo.com","123456"
 if (window.location.pathname.includes("home.html")) {
   document.getElementById("form1").addEventListener("submit", function (event) {
-
     event.preventDefault();
     if (checkEmail(event.target.elements.email.value)) {
       var email = event.target.elements.email.value;
@@ -341,8 +339,13 @@ if (window.location.pathname.includes("home.html")) {
       alert("Introduce un correo válido");
     }
     if (checkPswd(event.target.elements.pass.value)) {
-      var pass = event.target.elements.pass.value
-    } else {alert('Introduce una contraseña con al menos 6 caracteres, 1 mayúscula, 1 minúscula y 1 número')}
+      var pass = event.target.elements.pass.value;
+    } else {
+      alert(
+        "Introduce una contraseña con al menos 6 caracteres, 1 mayúscula, 1 minúscula y 1 número"
+      );
+    }
+
     let pass2 = event.target.elements.pass2.value;
 
     pass === pass2 ? signUpUser(email, pass) : alert("error password");
@@ -385,7 +388,8 @@ const signOut = () => {
 if (window.location.pathname.includes("home.html")) {
   document.getElementById("form2").addEventListener("submit", function (event) {
     event.preventDefault();
-    if (checkEmail(event.target.elements.email2.value))  {
+
+    if (checkEmail(event.target.elements.email2.value)) {
       var email = event.target.elements.email2.value;
     } else {
       alert("Introduce un email valido");
@@ -408,58 +412,78 @@ firebase.auth().onAuthStateChanged(function (user) {
   if (user) {
     console.log(`Está en el sistema:${user.email} ${user.uid}`);
     localStorage.setItem("Usuario", user.email); //Guardo usuario actual en local storage
+    // getGraphData(user.email);
+    printGrafic(user.email);
   } else {
     console.log("no hay usuarios en el sistema");
   }
 });
 
-
 // Gráfica:
 
-const printGrafic =() => {
-      db.collection("userScores")//Si no existe esta colección te la crea.
-        .add(score)
-        .then((docRef) => {
-          console.log("Document written with ID: ", docRef.id)
-          readAll();
-        })
-        .catch((error) => console.error("Error adding document: ", error));
-    };
+// async function getGraphData(userName) {
+//   let games = [];
+//   await db
+//     .collection("userScores").where("user", "==", userName)
+//     .get()
+//     .then((querySnapshot) => {
+//       querySnapshot.forEach((user) => {
+//         // console.log("***", user.data());
+//         games.push(user.data());
 
-const fireBaseData = () => {
-  db.collection("userScores")
-  .get()
-  .then((takeData) => {
-    takeData.forEach((doc) => {
-      printGrafic(doc.data().url, doc.id)
-    });
-  })
-  .catch(() => console.log('Error reading documents'));
+//       });
+//     }) .then(()=> games)
+//     .then(console.log(games))
+//     .then(printGrafic(games))
+//     .catch(() => console.log("Error reading user scores"));
+//     return games
+//   }
+
+const printGrafic = async (userName) => {
+  let userGames = [];
+  await db
+    .collection("userScores")
+    .where("user", "==", userName)
+    .get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach((user) => {
+        // console.log("***", user.data());
+        userGames.push(user.data());
+      });
+    })
+    // .then(console.log(games))
+    // .then(printGrafic(games))
+    .catch(() => console.log("Error reading user scores"));
+
+  let dates = [];
+  let scores = [];
+
+  userGames.forEach((game) => {
+    dates.push(game.date);
+    scores.push(game.score);
+  });
+
+  console.log(userGames, "******");
+
+  let data = {
+    // A labels array that can contain any sort of values
+    labels: dates,
+    // Our series array that contains series objects or in this case series data arrays
+    series: [scores],
+  };
+  const options = {
+    axisY: {
+      onlyInteger: true,
+    },
+  };
+
+  // console.log(data);
+
+  // Create a new line chart object where as first parameter we pass in a selector
+  // that is resolving to our chart container element. The Second parameter
+  // is the actual data object.
+
+  new Chartist.Line(".ct-chart", data, options);
 };
-    let dates = [];
-    let scores = [];
 
-    let data = {
-      // A labels array that can contain any sort of values
-      labels: dates,
-      // Our series array that contains series objects or in this case series data arrays
-      series: [score],
-    };
-    const options = {
-      axisY: {
-        onlyInteger: true,
-      },
-    };
-    tries.forEach((game) => {
-      dates.push(game.date);
-      scores.push(game.score);
-    });
-    console.log(data);
-
-    // Create a new line chart object where as first parameter we pass in a selector
-    // that is resolving to our chart container element. The Second parameter
-    // is the actual data object.
-
-    new Chartist.Line(".ct-chart", data, options);
- 
-
+printGrafic();
