@@ -1,60 +1,90 @@
 @keyframes slideInFromRight {
-    0% {
-        transform: translateX(100%);
-    }
-    100% {
-        transform: translateX(0);
-    }
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }
 
 @keyframes slideInFromLeft {
-    0% {
-        transform: translateX(-100%);
-    }
-    100% {
-        transform: translateX(0);
-    }
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }
 
 @keyframes slideInFromBottom {
-    0% {
-        transform: translateY(100%);
-    }
-    100% {
-        transform: translateY(0);
-    }
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
 }
 
 @keyframes slideInFromTop {
-    0% {
-        transform: translateY(-100%);
-    }
-    100% {
-        transform: translateY(0);
-    }
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
 }
 @keyframes zoomIn {
-    0% {
-        transform: scale(110%);
-        z-index: 20;
-    }
-    100% {
-        transform: scale(100%);
-        z-index: 1;
-    }
+  0% {
+    transform: scale(110%);
+    z-index: 20;
+  }
+  100% {
+    transform: scale(100%);
+    z-index: 1;
+  }
+}
+@font-face {
+  font-family: "neon";
+  src: url("./assets/Warnes-Regular.ttf");
 }
 
 body {
-    background-image: url(https://cdn.knownorigin.io/cdn/images/network/1/edition/270375);
-    background-size: cover;
+  background-image: url(https://cdn.knownorigin.io/cdn/images/network/1/edition/270375);
+  background-size: cover;
+  height: 100vh;
 }
 main {
   margin: 0px;
 }
 /* Main */
 
-h1 {
-  margin-bottom: 50px;
+.tarjeta-inicio > h1 {
+  font-family: "neon";
+  text-align: center;
+  text-decoration-color: solid aquamarine;
+  margin: 40px;
+  color: rgb(224, 10, 207);
+  background-color: rgb(255, 255, 255);
+  padding-top: 200px;
+  padding: 20px;
+}
+
+h2 {
+  font-family: "neon";
+  text-align: center;
+  margin: 40px;
+  color: rgb(224, 10, 207);
+  background-color: rgb(255, 255, 255);
+  padding: 20px;
+  padding-top: ;
+}
+
+h3 {
+  font-family: "neon";
+  text-align: center;
+  margin: 40px;
+  background-color: rgb(255, 255, 255);
+  padding: 20px;
 }
 
 #inicio {
@@ -63,43 +93,40 @@ h1 {
   background-color: black;
 }
 
-.tarjeta-inicio > h1 {
-  color: red;
+
+#start-button {
+  right: 200px;
+  align-items: center;
 }
 
 /* Quiz */
 
 form {
-    margin: 20px;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  margin: 20px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 #tarjeta-quiz {
-    /* animation: 0.2s ease-out 0s 1 slideInFromRight; */
-    backdrop-filter: blur(1px);
-    margin: 0px;
-    padding: 40px;
-    width: 80%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border-radius: 10px;
-    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  /* animation: 0.2s ease-out 0s 1 slideInFromRight; */
+  backdrop-filter: blur(1px);
+  margin: 0px;
+  padding: 40px;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 10px;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 #preguntas-y-respuestas {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
-h3 {
-  color: rgb(0, 0, 0);
-  background-color: rgb(255, 255, 255);
-  padding: 20px;
-}
 
 #respuestas {
   display: flex;
@@ -109,59 +136,96 @@ h3 {
 }
 
 .answer-button {
-    color: rgb(15, 15, 15);
-    margin: 20px;
-    padding: 20px 50px;
-    background-color: rgb(255, 255, 255);
-    border-radius: 20px;
-    
+  color: rgb(15, 15, 15);
+  margin: 20px;
+  padding: 20px 50px;
+  background-image: url(https://discord.com/channels/@me/1165954234680889364/1165954249209942026);
+  border-radius: 20px;
+  
 }
 .answer-button:hover {
-    background-color: blue;
-    cursor: pointer;
+  background-color: blue;
+  cursor: pointer;
 }
 .answer-button:disabled {
-    cursor: not-allowed;
-    background-color: gray;
+  cursor: not-allowed;
+  background-color: gray;
 }
 
 #botones-navegacion {
-    width: 90%;
-    margin: 10px;
-    display: flex;
-    justify-content: space-between;
+  width: 90%;
+  margin: 10px;
+  display: flex;
+  justify-content: space-between;
 }
 #back-button {
-    animation: 0.2s ease-out 0s 1 slideInFromBottom;
+  animation: 0.2s ease-out 0s 1 slideInFromBottom;
 }
 #ranking {
-    background-color: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
-th, td {
-    padding: 10px 50px;
+th,
+td {
+  padding: 10px 50px;
 }
-
 
 .display-none {
-    display: none;
+  display: none;
+}
+
+/* Result */
+
+#pag-results {
+  align-items: center;
+}
+#score-username {
+  align-items: center;
+  background-color: aliceblue;
+  border: 2cm black;
+}
+
+h2 {
+  text-align: center;
+}
+
+h4 {
+  text-align: center;
+  background-color: aliceblue;
+}
+
+#resultado {
+  margin: 40px;
+  text-align: center;
+  background-color: rgb(12, 224, 12);
 }
 .orange-background {
-    background-color: orange;
+  background-color: orange;
 }
 
 #timer-section {
-    position: absolute;
-    background-color: gray;
-    padding: 5px;
-    border-radius: 5px;
-    right: 20px;
-    z-index: 5;
+  position: absolute;
+  background-color: gray;
+  padding: 5px;
+  border-radius: 5px;
+  right: 20px;
+  z-index: 5;
 }
-#seconds, #minutes {
-    font-size: 40px;
-    color: white;
+#seconds,
+#minutes {
+  font-size: 40px;
+  color: white;
+}
+
+@media screen and (min-device-width: 768px) {
+  #answer-buttons {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  }
 }

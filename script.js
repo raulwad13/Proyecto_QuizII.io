@@ -52,7 +52,7 @@ function printQuestion(n) {
     document.getElementById("preguntas-y-respuestas").innerHTML = ` <h3>${
       i + 1
     }. ${n[i].question}</h3>
-                    <button class="answer-button" type="button">${
+    <section id="answer-buttons"><button class="answer-button" type="button">${
                       answers[0]
                     }</button>
                     <button class="answer-button" type="button">${
@@ -63,7 +63,7 @@ function printQuestion(n) {
                     }</button>
                     <button class="answer-button" type="button">${
                       answers[3]
-                    }</button>`;
+                    }</button></section>`;
   }
 }
 function checkAnswers() {
@@ -150,7 +150,7 @@ function getLocalStorage(item) {
   return JSON.parse(localStorage.getItem(item));
 }
 function showScore() {
-  let score = document.getElementById("score");
+  let resultado = document.getElementById("resultado");
   let username = document.getElementById("score-username");
   let scores = JSON.parse(localStorage.getItem("Results")).reverse(); //Le doy la vuelta para acceder al ultimo resultado siempre
   console.log(scores);
@@ -285,22 +285,22 @@ const readAllUsers = (born) => {
 //readAllUsers(1224)
 
 // Read ONE
-function readOne(id) {
-  db.collection("users")
-    .doc(id)
-    .get()
-    .then((doc) => {
-      if (doc.exists) {
-        console.log("Document data:", doc.data());
-      } else {
-        // doc.data() will be undefined in this case
-        console.log("No such document!");
-      }
-    })
-    .catch((error) => {
-      console.log("Error getting document:", error);
-    });
-}
+// function readOne(id) {
+//   db.collection("users")
+//     .doc(id)
+//     .get()
+//     .then((doc) => {
+//       if (doc.exists) {
+//         console.log("Document data:", doc.data());
+//       } else {
+//         // doc.data() will be undefined in this case
+//         console.log("No such document!");
+//       }
+//     })
+//     .catch((error) => {
+//       console.log("Error getting document:", error);
+//     });
+// }
 //readOne("690WYQfTZUoEFnq5q1Ov");
 
 /**************Firebase Auth*****************/
@@ -345,6 +345,7 @@ if (window.location.pathname.includes("home.html")) {
         "Introduce una contraseña con al menos 6 caracteres, 1 mayúscula, 1 minúscula y 1 número"
       );
     }
+
     let pass2 = event.target.elements.pass2.value;
 
     pass === pass2 ? signUpUser(email, pass) : alert("error password");
@@ -387,6 +388,7 @@ const signOut = () => {
 if (window.location.pathname.includes("home.html")) {
   document.getElementById("form2").addEventListener("submit", function (event) {
     event.preventDefault();
+
     if (checkEmail(event.target.elements.email2.value)) {
       var email = event.target.elements.email2.value;
     } else {
@@ -410,7 +412,83 @@ firebase.auth().onAuthStateChanged(function (user) {
   if (user) {
     console.log(`Está en el sistema:${user.email} ${user.uid}`);
     localStorage.setItem("Usuario", user.email); //Guardo usuario actual en local storage
+    // getGraphData(user.email);
+    printGrafic(user.email);
+    document.getElementById('register-login-section').classList.add('display-none')
+    document.getElementById('play-game').classList.remove('display-none')
+    document.getElementById('welcome-user').innerHTML = `Welcome ${user.email}`
   } else {
     console.log("no hay usuarios en el sistema");
+    document.getElementById('register-login-section').classList.remove('display-none')
+    document.getElementById('play-game').classList.add('display-none')
   }
 });
+
+// Gráfica:
+
+// async function getGraphData(userName) {
+//   let games = [];
+//   await db
+//     .collection("userScores").where("user", "==", userName)
+//     .get()
+//     .then((querySnapshot) => {
+//       querySnapshot.forEach((user) => {
+//         // console.log("***", user.data());
+//         games.push(user.data());
+
+//       });
+//     }) .then(()=> games)
+//     .then(console.log(games))
+//     .then(printGrafic(games))
+//     .catch(() => console.log("Error reading user scores"));
+//     return games
+//   }
+
+const printGrafic = async (userName) => {
+  let userGames = [];
+  await db
+    .collection("userScores")
+    .where("user", "==", userName)
+    .get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach((user) => {
+        // console.log("***", user.data());
+        userGames.push(user.data());
+      });
+    })
+    // .then(console.log(games))
+    // .then(printGrafic(games))
+    .catch(() => console.log("Error reading user scores"));
+
+  let dates = [];
+  let scores = [];
+
+  userGames.forEach((game) => {
+    dates.push(game.date);
+    scores.push(game.score);
+  });
+
+  console.log(userGames, "******");
+
+  let data = {
+    // A labels array that can contain any sort of values
+    labels: dates,
+    // Our series array that contains series objects or in this case series data arrays
+    series: [scores],
+  };
+  const options = {
+    axisY: {
+      onlyInteger: true,
+    },
+  };
+
+  // console.log(data);
+
+  // Create a new line chart object where as first parameter we pass in a selector
+  // that is resolving to our chart container element. The Second parameter
+  // is the actual data object.
+
+  new Chartist.Line(".ct-chart", data, options);
+};
+
+printGrafic();
