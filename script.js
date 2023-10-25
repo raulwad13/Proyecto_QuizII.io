@@ -1,6 +1,8 @@
 let questionsAndAnswers = [];
 let i = 0; //Contador de pregunta actual 0-10
 let score = 0;
+let timer; //setInterval del timer
+let sec = 0;
 // Your web app's Firebase configuration////////////////////////////////
 const firebaseConfig = {
   apiKey: "AIzaSyAvBfKEeMvxp9fOpwFofn40EZM1JP8qIPs",
@@ -31,6 +33,8 @@ async function startGame() {
   console.log(questionsAndAnswers);
   //pintar primera
   printQuestion(questionsAndAnswers);
+  checkAnswers();
+  startTimer();
 }
 function printQuestion(n) {
   let nextButton = document.getElementById("next-button"); //Oculto boton next
@@ -60,10 +64,10 @@ function printQuestion(n) {
                     <button class="answer-button" type="button">${
                       answers[3]
                     }</button>`;
-    checkAnswers();
   }
 }
 function checkAnswers() {
+  //Validacion de respuestas
   let botonesRespuestas = document.getElementsByClassName("answer-button");
   console.log(botonesRespuestas);
   for (let button of botonesRespuestas) {
@@ -71,7 +75,7 @@ function checkAnswers() {
       console.log(event.target.innerHTML);
       if (event.target.innerHTML == questionsAndAnswers[i].correct_answer) {
         event.target.style.backgroundColor = "green";
-        score += 100;
+        score += 100 - sec; //Penalizar score por tardar mucho
         cancelButtons();
         let nextButton = document.getElementById("next-button");
         nextButton.classList.toggle("display-none"); //Muestro boton next
@@ -80,10 +84,20 @@ function checkAnswers() {
       ) {
         event.target.style.backgroundColor = "red";
         cancelButtons();
+
+        for (let button of botonesRespuestas) {
+          if (button.innerHTML == questionsAndAnswers[i].correct_answer) {
+            button.style.backgroundColor = "green";
+          }
+        }
         let nextButton = document.getElementById("next-button");
         nextButton.classList.toggle("display-none"); //Muestro boton next
       }
     });
+  }
+  let timerSection = document.getElementsByClassName("timer-section");
+  if (sec > 10) {
+    timerSection.style.backgroundColor = "orange";
   }
 }
 function cancelButtons() {
@@ -159,17 +173,40 @@ async function showRanking() {
   let rankingTable = document.getElementById("ranking-table");
   let rankingPosition = 1;
   ranking.forEach((user) => {
-    rankingTable.innerHTML += 
-      `<tr>
+    rankingTable.innerHTML += `<tr>
         <td>${rankingPosition}.</td>
         <td>${user.score}</td>
         <td>${user.user.slice(0, -10)}</td>
       </tr>`;
-      rankingPosition++;
+    rankingPosition++;
   });
 }
 function restartGame() {
   window.location.href = "home.html";
+}
+function startTimer() {
+  //Timer
+  clearInterval(timer);
+  sec = 0;
+  timer = setInterval(function () {
+    document.getElementById("seconds").innerHTML = `:${pad(++sec % 60)}`;
+    document.getElementById("minutes").innerHTML = pad(parseInt(sec / 60, 10));
+    let timerSection = document.getElementById("timer-section");
+    if (timerSection) {
+      if (sec > 30) {
+        i++;
+        printQuestion(questionsAndAnswers);
+        startTimer();
+      } else if (sec > 19) {
+        timerSection.style.backgroundColor = "red";
+      } else if (sec > 9) {
+        timerSection.style.backgroundColor = "orange";
+      }
+    }
+  }, 1000);
+}
+function pad(val) {
+  return val > 9 ? val : "0" + val;
 }
 
 function checkEmail(email) {
@@ -215,6 +252,8 @@ if (nextButton) {
     if (i < 9) {
       i++;
       printQuestion(questionsAndAnswers);
+      checkAnswers();
+      startTimer();
     } else if (i >= 9) {
       console.log("Hello");
       storeResultsLocal();
