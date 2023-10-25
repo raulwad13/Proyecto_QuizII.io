@@ -182,7 +182,7 @@ async function showRanking() {
   });
 }
 function restartGame() {
-  window.location.href = "home.html";
+  window.location.href = "index.html";
 }
 function startTimer() {
   //Timer
@@ -330,7 +330,7 @@ const signUpUser = (email, password) => {
 };
 
 //"alex@demo.com","123456"
-if (window.location.pathname.includes("home.html")) {
+if (window.location.pathname.includes("index.html")) {
   document.getElementById("form1").addEventListener("submit", function (event) {
     event.preventDefault();
     if (checkEmail(event.target.elements.email.value)) {
@@ -385,7 +385,7 @@ const signOut = () => {
     });
 };
 
-if (window.location.pathname.includes("home.html")) {
+if (window.location.pathname.includes("index.html")) {
   document.getElementById("form2").addEventListener("submit", function (event) {
     event.preventDefault();
 
