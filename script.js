@@ -52,7 +52,7 @@ function printQuestion(n) {
     document.getElementById("preguntas-y-respuestas").innerHTML = ` <h3>${
       i + 1
     }. ${n[i].question}</h3>
-                    <button class="answer-button" type="button">${
+    <section id="answer-buttons"><button class="answer-button" type="button">${
                       answers[0]
                     }</button>
                     <button class="answer-button" type="button">${
@@ -63,7 +63,7 @@ function printQuestion(n) {
                     }</button>
                     <button class="answer-button" type="button">${
                       answers[3]
-                    }</button>`;
+                    }</button></section>`;
   }
 }
 function checkAnswers() {
@@ -414,8 +414,13 @@ firebase.auth().onAuthStateChanged(function (user) {
     localStorage.setItem("Usuario", user.email); //Guardo usuario actual en local storage
     // getGraphData(user.email);
     printGrafic(user.email);
+    document.getElementById('register-login-section').classList.add('display-none')
+    document.getElementById('play-game').classList.remove('display-none')
+    document.getElementById('welcome-user').innerHTML = `Welcome ${user.email}`
   } else {
     console.log("no hay usuarios en el sistema");
+    document.getElementById('register-login-section').classList.remove('display-none')
+    document.getElementById('play-game').classList.add('display-none')
   }
 });
 
