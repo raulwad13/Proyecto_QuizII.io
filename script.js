@@ -53,8 +53,8 @@ function printQuestion(n) {
       i + 1
     }. ${n[i].question}</h3>
     <section id="answer-buttons"><button class="answer-button" type="button">${
-                      answers[0]
-                    }</button>
+      answers[0]
+    }</button>
                     <button class="answer-button" type="button">${
                       answers[1]
                     }</button>
@@ -97,7 +97,7 @@ function checkAnswers() {
   }
   let timerSection = document.getElementsByClassName("timer-section");
   if (sec > 10) {
-    timerSection.style.backgroundColor = "orange";
+    timerSection.style.backgroundColor = "yellow";
   }
 }
 function cancelButtons() {
@@ -200,7 +200,7 @@ function startTimer() {
       } else if (sec > 19) {
         timerSection.style.backgroundColor = "red";
       } else if (sec > 9) {
-        timerSection.style.backgroundColor = "orange";
+        timerSection.style.backgroundColor = "rgba(255,220,0, 0.8)";
       }
     }
   }, 1000);
@@ -414,13 +414,18 @@ firebase.auth().onAuthStateChanged(function (user) {
     localStorage.setItem("Usuario", user.email); //Guardo usuario actual en local storage
     // getGraphData(user.email);
     printGrafic(user.email);
-    document.getElementById('register-login-section').classList.add('display-none')
-    document.getElementById('play-game').classList.remove('display-none')
-    document.getElementById('welcome-user').innerHTML = `Welcome ${user.email}`
+    document
+      .getElementById("register-login-section")
+      .classList.add("display-none");
+    document.getElementById("play-game").style.display = "flex";
+    document.getElementById("welcome-user").innerHTML = `Welcome ${user.email}`;
   } else {
     console.log("no hay usuarios en el sistema");
-    document.getElementById('register-login-section').classList.remove('display-none')
-    document.getElementById('play-game').classList.add('display-none')
+    document
+      .getElementById("register-login-section")
+      .classList.remove("display-none");
+    document.getElementById("play-game").classList.add("display-none");
+    document.getElementById("play-game").style.display = "none";
   }
 });
 
@@ -480,6 +485,8 @@ const printGrafic = async (userName) => {
     axisY: {
       onlyInteger: true,
     },
+    width: "450px",
+    height: "200px",
   };
 
   // console.log(data);
