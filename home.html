@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz II: El retorno</title>
+    <link
+      rel="stylesheet"
+      href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css"
+    />
+    <script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" href="./assets/metroid.png">
+  </head>
+
+  <body id="index">
+    <!-- <section id="register-login-section">
+      <audio
+        controls
+        src="./assets/stmusic.mp3"
+        class="music"
+        controls
+        loop
+      ></audio> -->
+
+      <!-- <button class="audioButton"><img src="./assets/"></button> -->
+
+      <h2>REGISTRO</h2>
+      <form id="form1" action="#" method="POST">
+        <label for="email">Email:</label><br />
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="Introduce email..."
+        /><br />
+        <label for="pass">Password:</label><br />
+        <input
+          type="password"
+          id="pass"
+          name="pass"
+          placeholder="Introduce password..."
+        /><br />
+        <label for="pass2">Repite password:</label><br />
+        <input
+          type="password"
+          id="pass2"
+          name="pass2"
+          placeholder="Repite password..."
+        /><br /><br />
+        <input type="submit" value="Enviar" />
+      </form>
+
+      <h2>LOGIN</h2>
+      <form id="form2" action="#" method="POST">
+        <label for="email2"></label><br />
+        <input
+          type="email"
+          id="email2"
+          name="email2"
+          placeholder="Introduce email..."
+        /><br />
+        <label for="pass3"></label><br />
+        <input
+          type="password"
+          id="pass3"
+          name="pass3"
+          placeholder="Introduce password..."
+        /><br />
+        <input type="submit" value="Enviar" />
+      </form>
+    </section>
+    <section id="play-game">
+      <!-- <audio
+        controls
+        src="./assets/stmusic.mp3"
+        class="music"
+        controls
+        loop
+      ></audio> -->
+
+      <!-- <button class="audioButton"><img src="./assets/"></button> -->
+
+      <button id="salir">Logout</button>
+
+      <section class="tarjeta-welcome">
+        <h1 id="welcome-user"></h1>
+        <button id="start-button" type="button">Start Game</button>
+      </section>
+
+      <section class="tarjeta-inicio">
+        <h1>YOUR STATS</h1>
+
+        <div class="ct-chart">
+          <!-- GRAFICA -->
+        </div>
+      </section>
+    </section>
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-auth.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

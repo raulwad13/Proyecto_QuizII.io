@@ -7,22 +7,50 @@
     <title>Quiz II: El retorno</title>
 
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="./assets/metroid.png">
 </head>
 
-<body>
-    <section id="tarjeta-resultado">
-    <h2>Enhorabuena! has acabado</h2>
-    <div id="final-score" style="display: none;">
-        <h2>FINAL SCORE</h2>
-        <p>Your Score: <span id="score-value"></span></p>
-       
-      </div>
+
+<body id="pag-results">
+   <!-- <section id="register-login-section">
+      <audio
+        controls
+        src="./assets/stmusic.mp3"
+        class="music"
+        controls
+        loop
+      ></audio> -->
     </section>
-    <button id="restart-button">Play Again</button>
+    <h2 id="score-username"></h2>
+    <article id="tu_score">
+    <h4>Tus resultado es:</h4>
+    <span id="score"></span>
+</article>
+    <section id="ranking">
+        <table id="ranking-table">
+            <tr>
+                <th>Rank</th>
+                <th>Score</th>
+                <th>User</th>
+            </tr>
+        </table>
+    </section>
+
+    <button id="restart-button" type="button">Reintentar</button>
+
+
+    <!-- boton para reiniciar el juego -->
+
+
 </body>
 
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-app.js"></script>
 
+<!-- TODO: Add SDKs for Firebase products that you want to use
+    https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-auth.js"></script>
 <script src="script.js"></script>
 </body>
 </html>
-

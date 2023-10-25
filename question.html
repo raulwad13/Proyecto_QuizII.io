@@ -5,25 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="style.css" />
+    <link rel="icon" href="./assets/metroid.png">
   </head>
 
   <body>
+   <!-- <section id="register-login-section">
+      <audio
+        controls
+        src="./assets/stmusic.mp3"
+        class="music"
+        controls
+        loop
+      ></audio> -->
     <main>
-        <form>
-            <section id="tarjeta-quiz">
-                <div id="preguntas-y-respuestas">
-                </div>
-                <button id="next-button" type="button">Next</button>
-            </section>
-        </form>
-        <!-- <h2>HAS ACABADO!!</h2>
-        <div id="final-score" style="display: none;">
-            <h2>FINAL SCORE</h2>
-            <p>Your Score: <span id="score-value">0</span></p>
-            <button id="restart-button">Play Again</button>
-          </div> -->
+
+      <form>
+        <section id="timer-section">
+          <span id="minutes"></span><span id="seconds"></span>
+        </section>
+        <section id="tarjeta-quiz">
+          <div id="preguntas-y-respuestas"></div>
+          <button id="next-button" type="button">Next</button>
+        </section>
+      </form>
     </main>
 
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-auth.js"></script>
     <script src="script.js"></script>
   </body>
 </html>
