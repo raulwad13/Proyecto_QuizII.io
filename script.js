@@ -1,6 +1,24 @@
 let questionsAndAnswers = [];
 let i = 0; //Contador de pregunta actual 0-10
 let score = 0;
+let timer; //setInterval del timer
+let sec = 0;
+// Your web app's Firebase configuration////////////////////////////////
+const firebaseConfig = {
+  apiKey: "AIzaSyAvBfKEeMvxp9fOpwFofn40EZM1JP8qIPs",
+  authDomain: "quiz-ii-the-revenge.firebaseapp.com",
+  projectId: "quiz-ii-the-revenge",
+  storageBucket: "quiz-ii-the-revenge.appspot.com",
+  messagingSenderId: "169985803724",
+  appId: "1:169985803724:web:8fd4970097e79eb0348969",
+};
+
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig); // Inicializaar app Firebase
+
+const db = firebase.firestore(); // db representa mi BBDD //inicia Firestore
+
+//
 
 async function getQuestions() {
   let response = await fetch(
@@ -15,9 +33,11 @@ async function startGame() {
   console.log(questionsAndAnswers);
   //pintar primera
   printQuestion(questionsAndAnswers);
+  checkAnswers();
+  startTimer();
 }
 function printQuestion(n) {
-  let nextButton = document.getElementById("next-button");
+  let nextButton = document.getElementById("next-button"); //Oculto boton next
   nextButton.classList.toggle("display-none");
   if (questionsAndAnswers && questionsAndAnswers[i]) {
     let answers = [
@@ -44,10 +64,10 @@ function printQuestion(n) {
                     <button class="answer-button" type="button">${
                       answers[3]
                     }</button>`;
-    checkAnswers();
   }
 }
 function checkAnswers() {
+  //Validacion de respuestas
   let botonesRespuestas = document.getElementsByClassName("answer-button");
   console.log(botonesRespuestas);
   for (let button of botonesRespuestas) {
@@ -55,19 +75,29 @@ function checkAnswers() {
       console.log(event.target.innerHTML);
       if (event.target.innerHTML == questionsAndAnswers[i].correct_answer) {
         event.target.style.backgroundColor = "green";
-        score += 100;
+        score += 100 - sec; //Penalizar score por tardar mucho
         cancelButtons();
         let nextButton = document.getElementById("next-button");
-        nextButton.classList.toggle("display-none");
+        nextButton.classList.toggle("display-none"); //Muestro boton next
       } else if (
         event.target.innerHTML !== questionsAndAnswers[i].correct_answer
       ) {
         event.target.style.backgroundColor = "red";
         cancelButtons();
+
+        for (let button of botonesRespuestas) {
+          if (button.innerHTML == questionsAndAnswers[i].correct_answer) {
+            button.style.backgroundColor = "green";
+          }
+        }
         let nextButton = document.getElementById("next-button");
-        nextButton.classList.toggle("display-none");
+        nextButton.classList.toggle("display-none"); //Muestro boton next
       }
     });
+  }
+  let timerSection = document.getElementsByClassName("timer-section");
+  if (sec > 10) {
+    timerSection.style.backgroundColor = "orange";
   }
 }
 function cancelButtons() {
@@ -120,15 +150,63 @@ function getLocalStorage(item) {
   return JSON.parse(localStorage.getItem(item));
 }
 function showScore() {
-  let resultado = document.getElementById("resultado");
+  let score = document.getElementById("score");
   let username = document.getElementById("score-username");
   let scores = JSON.parse(localStorage.getItem("Results")).reverse(); //Le doy la vuelta para acceder al ultimo resultado siempre
   console.log(scores);
-  resultado.innerHTML = scores[0].score;
+  score.innerHTML = scores[0].score;
   username.innerHTML = `Enhorabuena, ${scores[0].user}!`;
+}
+async function showRanking() {
+  let ranking = [];
+  await db
+    .collection("userScores")
+    .get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach((user) => {
+        ranking.push(user.data());
+        ranking.sort((a, b) => b.score - a.score);
+      });
+    })
+    .then(console.log(ranking))
+    .catch(() => console.log("Error reading user scores"));
+  let rankingTable = document.getElementById("ranking-table");
+  let rankingPosition = 1;
+  ranking.forEach((user) => {
+    rankingTable.innerHTML += `<tr>
+        <td>${rankingPosition}.</td>
+        <td>${user.score}</td>
+        <td>${user.user.slice(0, -10)}</td>
+      </tr>`;
+    rankingPosition++;
+  });
 }
 function restartGame() {
   window.location.href = "home.html";
+}
+function startTimer() {
+  //Timer
+  clearInterval(timer);
+  sec = 0;
+  timer = setInterval(function () {
+    document.getElementById("seconds").innerHTML = `:${pad(++sec % 60)}`;
+    document.getElementById("minutes").innerHTML = pad(parseInt(sec / 60, 10));
+    let timerSection = document.getElementById("timer-section");
+    if (timerSection) {
+      if (sec > 30) {
+        i++;
+        printQuestion(questionsAndAnswers);
+        startTimer();
+      } else if (sec > 19) {
+        timerSection.style.backgroundColor = "red";
+      } else if (sec > 9) {
+        timerSection.style.backgroundColor = "orange";
+      }
+    }
+  }, 1000);
+}
+function pad(val) {
+  return val > 9 ? val : "0" + val;
 }
 
 function checkEmail(email) {
@@ -147,6 +225,7 @@ if (window.location.pathname.includes("question.html")) {
 //Empezar showScore() solo si estamos en results.html
 if (window.location.pathname.includes("results.html")) {
   showScore();
+  showRanking();
   let restartButton = document.getElementById("restart-button");
   restartButton.addEventListener("click", (event) => {
     event.preventDefault();
@@ -173,6 +252,8 @@ if (nextButton) {
     if (i < 9) {
       i++;
       printQuestion(questionsAndAnswers);
+      checkAnswers();
+      startTimer();
     } else if (i >= 9) {
       console.log("Hello");
       storeResultsLocal();
@@ -182,24 +263,6 @@ if (nextButton) {
     }
   });
 }
-
-// Your web app's Firebase configuration////////////////////////////////
-const firebaseConfig = {
-  apiKey: "AIzaSyAvBfKEeMvxp9fOpwFofn40EZM1JP8qIPs",
-  authDomain: "quiz-ii-the-revenge.firebaseapp.com",
-  projectId: "quiz-ii-the-revenge",
-  storageBucket: "quiz-ii-the-revenge.appspot.com",
-  messagingSenderId: "169985803724",
-  appId: "1:169985803724:web:8fd4970097e79eb0348969",
-};
-
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig); // Inicializaar app Firebase
-
-const db = firebase.firestore(); // db representa mi BBDD //inicia Firestore
-
-//
-
 /**************Firebase Auth*****************/
 
 const createUser = (user) => {
@@ -272,10 +335,16 @@ if (window.location.pathname.includes("home.html")) {
     event.preventDefault();
     if (checkEmail(event.target.elements.email.value)) {
       var email = event.target.elements.email.value;
-    } else {alert('Introduce un correo válido')}
+    } else {
+      alert("Introduce un correo válido");
+    }
     if (checkPswd(event.target.elements.pass.value)) {
-      var pass = event.target.elements.pass.value
-    } else {alert('Introduce una contraseña con al menos 6 caracteres, 1 mayúscula, 1 minúscula y 1 número')}
+      var pass = event.target.elements.pass.value;
+    } else {
+      alert(
+        "Introduce una contraseña con al menos 6 caracteres, 1 mayúscula, 1 minúscula y 1 número"
+      );
+    }
     let pass2 = event.target.elements.pass2.value;
 
     pass === pass2 ? signUpUser(email, pass) : alert("error password");
@@ -318,14 +387,20 @@ const signOut = () => {
 if (window.location.pathname.includes("home.html")) {
   document.getElementById("form2").addEventListener("submit", function (event) {
     event.preventDefault();
-    if (checkEmail(event.target.elements.email2.value))  {
+    if (checkEmail(event.target.elements.email2.value)) {
       var email = event.target.elements.email2.value;
-    } else {alert('Introduce un email valido')};
+    } else {
+      alert("Introduce un email valido");
+    }
     if (checkPswd(event.target.elements.pass3.value)) {
       var pass = event.target.elements.pass3.value;
-    } else {alert('Introduce una contraseña con al menos 6 caracteres, 1 mayúscula, 1 minúscula y 1 número')}
-    signInUser(email, pass)
-  })
+    } else {
+      alert(
+        "Introduce una contraseña con al menos 6 caracteres, 1 mayúscula, 1 minúscula y 1 número"
+      );
+    }
+    signInUser(email, pass);
+  });
   document.getElementById("salir").addEventListener("click", signOut);
 }
 
