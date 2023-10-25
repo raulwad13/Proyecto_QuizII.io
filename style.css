@@ -54,6 +54,8 @@ main {
 /* Main */
 
 h1 {
+  text-align: center;
+  margin: 40px;
   margin-bottom: 50px;
 }
 
@@ -100,8 +102,9 @@ form {
   display: flex;
   flex-direction: column;
 }
-
 h3 {
+  text-align: center;
+  margin: 40px;
   color: rgb(0, 0, 0);
   background-color: rgb(255, 255, 255);
   padding: 20px;
@@ -145,8 +148,8 @@ h3 {
 
 /* Result */
 
-#pag-results{
-    align-items: center;
+#pag-results {
+  align-items: center;
 }
 #score-username {
   align-items: center;
