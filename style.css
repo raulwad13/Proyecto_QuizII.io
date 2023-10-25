@@ -47,18 +47,136 @@
   font-family: "neon";
   src: url("./assets/Warnes-Regular.ttf");
 }
-
+@font-face {
+  font-family: "akira";
+  src: url("./assets/AkiraExpandedDemo.otf");
+}
+@font-face {
+  font-family: "minecraft";
+  src: url("./assets/Minecraft.ttf");
+}
+@import url('https://fonts.googleapis.com/css2?family=Sometype+Mono:wght@700&display=swap');
 body {
   background-image: url(https://cdn.knownorigin.io/cdn/images/network/1/edition/270375);
   background-size: cover;
-  height: 100vh;
+  height: 100%;
 }
 main {
   margin: 0px;
 }
+
+/* Home */
+#play-game {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+#salir {
+  font-family: 'akira';
+  font-size: 1em;
+  color: rgb(15, 15, 15);
+  background-color: rgba(10,189,198, 0.75);
+  backdrop-filter: blur(10px);
+  border: 5px solid black;
+  box-shadow: 2px 2px 2px black;
+  padding: 20px 50px;
+  border-radius: 20px;
+}
+
+#welcome-user {
+  font-family: 'akira';
+  text-align: center;
+  font-weight: 500;
+  margin: 40px;
+  padding: 10px;
+  background-color: black;
+  border: 2px solid #ea00d9;
+  text-shadow: 1px 1px 5px #ea00d9;
+  box-shadow: 10px 10px 2px #ea00d9;
+  color: #ffffff;
+  border-radius: 20px;
+  min-height: 10vh;
+  font-size: 1.5em;
+  padding: 20px;
+  overflow-y: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+h1 {
+  font-family: 'akira';
+  text-align: center;
+  font-weight: 500;
+  margin: 40px;
+  padding: 10px;
+  background-color: black;
+  border: 2px solid black;
+  text-shadow: 1px 1px 5px black;
+  color: black;
+  border-radius: 20px;
+  font-size: 1.5em;
+  padding: 20px;
+  overflow-y: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+#start-button {
+  font-family: 'akira';
+  font-size: 2em;
+  color: rgb(15, 15, 15);
+  background-color: #ea00d9;
+  backdrop-filter: blur(10px);
+  border: 5px solid black;
+  box-shadow: 2px 2px 2px black;
+  padding: 20px 50px;
+  border-radius: 20px;
+
+}
+#start-button:hover {
+  background-color: aqua;
+  transform: scale(1.05);
+}
+.tarjeta-inicio {
+  display: flex;
+  flex-direction: column;
+
+}
+
+#tarjeta-grafica {
+  backdrop-filter: blur(30px);
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px black;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#tarjeta-grafica > h1 {
+  width: 90%;
+}
+
+.ct-chart {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.ct-label {
+  font-weight: 900;
+  font-size: 15px;
+  color: black;
+}
+.ct-series-a .ct-bar, .ct-series-a .ct-line, .ct-series-a .ct-point, .ct-series-a .ct-slice-donut {
+  stroke:#ea00d9
+}
+
 /* Main */
-.tarjeta-welcome > h1 {
-  font-family: "neon";
+
+.tarjeta-inicio > h1 {
+  font-family: "akira";
   text-align: center;
   text-decoration-color: solid aquamarine;
   margin: 40px;
@@ -67,46 +185,21 @@ main {
   padding: 20px;
 }
 
-.tarjeta-inicio {
-  font-family: "neon";
+h2 {
+  font-family: "akira";
   text-align: center;
   margin: 40px;
   background-color: rgb(255, 255, 255);
   padding-top: 200px;
   padding: 20px;
-}
-h1{
-  color: rgb(224, 10, 207);
-  text-shadow: 2px 2px 2px aquamarine;
-}
-h2 {
-  font-family: "neon";
-  text-align: center;
-  margin: 40px;
-  color: rgb(224, 10, 207);
-  background-color: rgb(255, 255, 255);
-  padding: 20px;
-  padding-top: 2;
+  padding-top: ;
 }
 
-h3 {
-  font-family: "neon";
-  text-align: center;
-  margin: 40px;
-  background-color: rgb(255, 255, 255);
-  padding: 20px;
-}
 
 #inicio {
   text-decoration: none;
   color: white;
   background-color: black;
-}
-
-
-#start-button {
-  right: 200px;
-  align-items: center;
 }
 
 /* Quiz */
@@ -119,34 +212,59 @@ form {
   align-items: center;
 }
 #tarjeta-quiz {
-  /* animation: 0.2s ease-out 0s 1 slideInFromRight; */
-  backdrop-filter: blur(1px);
+  height: 80vh;
   margin: 0px;
   padding: 40px;
-  width: 80%;
+  width: 92%;
   display: flex;
   flex-direction: column;
   align-items: center;
   border-radius: 10px;
-  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 #preguntas-y-respuestas {
   width: 100%;
+  height: 80vh;
   display: flex;
   flex-direction: column;
 }
-
-
-#respuestas {
+#preguntas-y-respuestas > h3 {
+  font-family: 'akira';
+  text-align: center;
+  font-weight: 500;
+  margin: 40px;
+  padding: 10px;
+  background-color: black;
+  border: 2px solid #ea00d9;
+  text-shadow: 1px 1px 5px #ea00d9;
+  box-shadow: 10px 10px 2px #ea00d9;
+  color: #ffffff;
+  border-radius: 20px;
+  min-height: 20vh;
+  font-size: 2em;
+  padding: 20px;
+  overflow-y: hidden;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
 }
 
+#answer-buttons {
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+}
+
+
 .answer-button {
+  font-family: 'akira';
+  font-size: 1.5em;
   color: rgb(15, 15, 15);
+  background-color: rgba(10,189,198, 0.75);
+  backdrop-filter: blur(10px);
+  border: 5px solid black;
+  box-shadow: 2px 2px 2px black;
+  height: 25%;
   margin: 20px;
   padding: 20px 50px;
   background-image: url(https://discord.com/channels/@me/1165954234680889364/1165954249209942026);
@@ -156,10 +274,29 @@ form {
 .answer-button:hover {
   background-color: blue;
   cursor: pointer;
+  transform: scale(1.05);
 }
 .answer-button:disabled {
   cursor: not-allowed;
   background-color: gray;
+  animation: 0.2s ease-out 0s 1 zoomIn;
+}
+
+#next-button {
+  font-family: 'akira';
+  font-size: 1.5em;
+  color: rgb(15, 15, 15);
+  background-color: rgba(19,62,124, 0.75);
+  backdrop-filter: blur(10px);
+  border: 5px solid black;
+  box-shadow: 2px 2px 2px black;
+  padding: 50px;
+  width: 50%;
+
+}
+#next-button:hover {
+  cursor: pointer;
+  transform: scale(1.05);
 }
 
 #botones-navegacion {
@@ -198,14 +335,6 @@ td {
   border: 2cm black;
 }
 
-h2 {
-  text-align: center;
-}
-
-h4 {
-  text-align: center;
-  background-color: aliceblue;
-}
 
 #resultado {
   margin: 40px;
@@ -213,12 +342,13 @@ h4 {
   background-color: rgb(12, 224, 12);
 }
 .orange-background {
-  background-color: orange;
+  background-color: rgba(255,215,0,0.1);
 }
 
 #timer-section {
   position: absolute;
-  background-color: gray;
+  backdrop-filter: blur(5px);
+  border: 2px solid #00ff9f;
   padding: 5px;
   border-radius: 5px;
   right: 20px;
@@ -230,12 +360,19 @@ h4 {
   color: white;
 }
 
-@media screen and (min-device-width: 768px) {
+@media only screen and (min-width: 768px) {
+  #preguntas-y-respuestas > h3 {
+    font-size: 3em;
+  }
   #answer-buttons {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+  }
+  .answer-button {
+    width: 40%;
+    font-size: 2em;
   }
 }
