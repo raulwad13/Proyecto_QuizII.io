@@ -57,18 +57,28 @@ main {
   margin: 0px;
 }
 /* Main */
-
-.tarjeta-inicio > h1 {
+.tarjeta-welcome > h1 {
   font-family: "neon";
   text-align: center;
   text-decoration-color: solid aquamarine;
   margin: 40px;
   color: rgb(224, 10, 207);
   background-color: rgb(255, 255, 255);
-  padding-top: 200px;
   padding: 20px;
 }
 
+.tarjeta-inicio {
+  font-family: "neon";
+  text-align: center;
+  margin: 40px;
+  background-color: rgb(255, 255, 255);
+  padding-top: 200px;
+  padding: 20px;
+}
+h1{
+  color: rgb(224, 10, 207);
+  text-shadow: 2px 2px 2px aquamarine;
+}
 h2 {
   font-family: "neon";
   text-align: center;
@@ -76,7 +86,7 @@ h2 {
   color: rgb(224, 10, 207);
   background-color: rgb(255, 255, 255);
   padding: 20px;
-  padding-top: ;
+  padding-top: 2;
 }
 
 h3 {
