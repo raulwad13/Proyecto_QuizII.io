@@ -4,94 +4,47 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Quiz II: El retorno</title>
-    <link
-      rel="stylesheet"
-      href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css"
-    />
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
     <script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
     <link rel="stylesheet" href="style.css" />
-    <link rel="icon" href="./assets/metroid.png">
   </head>
 
   <body id="index">
-    <!-- <section id="register-login-section">
-      <audio
-        controls
-        src="./assets/stmusic.mp3"
-        class="music"
-        controls
-        loop
-      ></audio> -->
-
-      <!-- <button class="audioButton"><img src="./assets/"></button> -->
-
+    <section id="register-login-section">
       <h2>REGISTRO</h2>
-      <form id="form1" action="#" method="POST">
-        <label for="email">Email:</label><br />
-        <input
-          type="email"
-          id="email"
-          name="email"
-          placeholder="Introduce email..."
-        /><br />
-        <label for="pass">Password:</label><br />
-        <input
-          type="password"
-          id="pass"
-          name="pass"
-          placeholder="Introduce password..."
-        /><br />
-        <label for="pass2">Repite password:</label><br />
-        <input
-          type="password"
-          id="pass2"
-          name="pass2"
-          placeholder="Repite password..."
-        /><br /><br />
-        <input type="submit" value="Enviar" />
+      <form id ="form1" action="#" method="POST">
+          <label for="email">Email:</label><br>
+          <input type="email" id="email" name="email" placeholder="Introduce email..."><br>
+          <label for="pass">Password:</label><br>
+          <input type="password" id="pass" name="pass" placeholder="Introduce password..."><br>
+          <label for="pass2">Repite password:</label><br>
+          <input type="password" id="pass2" name="pass2" placeholder="Repite password..."><br><br>
+          <input type="submit" value="Enviar">
+      </form>
+  
+  
+      <h2>LOGIN</h2>
+      <form id ="form2" action="#" method="POST">
+          <label for="email2">Email:</label><br>
+          <input type="email" id="email2" name="email2" placeholder="Introduce email..."><br>
+          <label for="pass3">Password:</label><br>
+          <input type="password" id="pass3" name="pass3" placeholder="Introduce password..."><br>
+          <input type="submit" value="Enviar">
       </form>
 
-      <h2>LOGIN</h2>
-      <form id="form2" action="#" method="POST">
-        <label for="email2"></label><br />
-        <input
-          type="email"
-          id="email2"
-          name="email2"
-          placeholder="Introduce email..."
-        /><br />
-        <label for="pass3"></label><br />
-        <input
-          type="password"
-          id="pass3"
-          name="pass3"
-          placeholder="Introduce password..."
-        /><br />
-        <input type="submit" value="Enviar" />
-      </form>
     </section>
     <section id="play-game">
-      <!-- <audio
-        controls
-        src="./assets/stmusic.mp3"
-        class="music"
-        controls
-        loop
-      ></audio> -->
-
-      <!-- <button class="audioButton"><img src="./assets/"></button> -->
-
       <button id="salir">Logout</button>
-
       <section class="tarjeta-welcome">
         <h1 id="welcome-user"></h1>
         <button id="start-button" type="button">Start Game</button>
       </section>
-
-      <section class="tarjeta-inicio">
+  
+      <section class="tarjeta-inicio" id="tarjeta-grafica">
         <h1>YOUR STATS</h1>
-
+  
         <div class="ct-chart">
+  
           <!-- GRAFICA -->
         </div>
       </section>
