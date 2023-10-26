@@ -65,6 +65,7 @@ main {
   margin: 0px;
 }
 
+
 /* Home */
 #play-game {
   display: flex;
@@ -72,28 +73,6 @@ main {
   justify-content: space-between;
   align-items: center;
 }
-/* audio{
-display: none;
-}
-.audioButton {
-  border: none;
-  outline: none;
-  cursor: pointer;
-  background-color: #0000;
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  z-index: 99;
-}
-.audioButton img{
-  top: 30px;
-  right: 30px;
-}
-
-.audioButton {
-  width: 5em;
-} */
-
 #salir {
   font-family: 'akira';
   font-size: 1em;
@@ -210,19 +189,16 @@ h1 {
 h2 {
   text-align: center;
   font-family: 'akira';
-  font-size: 1em;
+  font-size: 2em;
   color: rgb(15, 15, 15);
-  background-color: rgba(10,189,198, 0.75);
+  background-color: #ea00d9;
   backdrop-filter: blur(10px);
   border: 5px solid black;
   box-shadow: 2px 2px 2px black;
   padding: 20px 50px;
   border-radius: 20px;
 }
-h1{
-  color: rgb(224, 10, 207);
-  text-shadow: 2px 2px 2px aquamarine;
-}
+
 
 #inicio {
   text-decoration: none;
@@ -336,10 +312,42 @@ form {
 #back-button {
   animation: 0.2s ease-out 0s 1 slideInFromBottom;
 }
+
+
+
+/* Result */
+
+#pag-results {
+  align-items: center;
+}
+#score-username {
+  text-align: center;
+  font-family: 'akira';
+  font-size: 2em;
+  color: rgb(15, 15, 15);
+  background-color: #ea00d9;
+  backdrop-filter: blur(10px);
+  border: 5px solid black;
+  box-shadow: 2px 2px 2px black;
+  padding: 20px 50px;
+  border-radius: 20px;
+}
+#tu_resultado{
+  font-family: 'akira';
+  font-size: 1em;
+  color: rgb(15, 15, 15);
+  background-color: rgba(10,189,198, 0.75);
+  backdrop-filter: blur(10px);
+  border: 5px solid black;
+  box-shadow: 2px 2px 2px black;
+  padding: 20px 50px;
+  border-radius: 20px;
+}
+
 #ranking {
   font-family: 'akira';
   text-align: center;
-  font-weight: 400;
+  font-weight: 500;
   margin: 40px;
   padding: 10px;
   background-color: black;
@@ -365,37 +373,6 @@ td {
   display: none;
 }
 
-/* Result */
-
-#pag-results {
-  align-items: center;
-}
-#score-username {
-  font-family: 'akira';
-  text-align: center;
-  font-weight: 400;
-  margin: 40px;
-  padding: 10px;
-  background-color: black;
-  border: 2px solid #ea00d9;
-  text-shadow: 1px 1px 5px #ea00d9;
-  box-shadow: 10px 10px 2px #ea00d9;
-  color: #ffffff;
-  border-radius: 20px;
-  min-height: 10vh;
-  font-size: 1.5em;
-  padding: 20px;
-  overflow-y: hidden;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-#resultado {
-  margin: 40px;
-  text-align: center;
-  background-color: rgb(12, 224, 12);
-}
 .orange-background {
   background-color: rgba(255,215,0,0.1);
 }
@@ -430,17 +407,4 @@ td {
     width: 40%;
     font-size: 2em;
   }
-}
-
-#tu_score{
-  text-align: center;
-  font-family: 'akira';
-  font-size: 1em;
-  color: rgb(15, 15, 15);
-  background-color: rgba(10,189,198, 0.75);
-  backdrop-filter: blur(10px);
-  border: 5px solid black;
-  box-shadow: 2px 2px 2px black;
-  padding: 20px 50px;
-  border-radius: 20px;
 }
