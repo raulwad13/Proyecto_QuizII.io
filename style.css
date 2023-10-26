@@ -84,7 +84,24 @@ main {
   padding: 20px 50px;
   border-radius: 20px;
 }
+/* .tarjeta-welcome{
+  display: flex;
+  flex-direction: column;
+}
+#register-login-section{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+} */
+#form1{
+  border: 5px solid black;
+  backdrop-filter: blur(10px);
+}
 
+#form2{
+  border: 5px solid black;
+  backdrop-filter: blur(10px);
+}
 #welcome-user {
   font-family: 'akira';
   text-align: center;
@@ -131,10 +148,12 @@ h1 {
   backdrop-filter: blur(10px);
   border: 5px solid black;
   box-shadow: 2px 2px 2px black;
+  padding-bottom: 40px;
   padding: 20px 50px;
   border-radius: 20px;
 
 }
+
 #start-button:hover {
   background-color: aqua;
   transform: scale(1.05);
@@ -245,7 +264,7 @@ form {
   color: #ffffff;
   border-radius: 20px;
   min-height: 20vh;
-  font-size: 2em;
+  font-size: 1em;
   padding: 20px;
   overflow-y: hidden;
   display: flex;
@@ -343,12 +362,11 @@ form {
   padding: 20px 50px;
   border-radius: 20px;
 }
-
 #ranking {
   font-family: 'akira';
   text-align: center;
   font-weight: 500;
-  margin: 40px;
+  margin: 20px;
   padding: 10px;
   background-color: black;
   border: 2px solid #ea00d9;
@@ -357,7 +375,7 @@ form {
   color: #ffffff;
   border-radius: 20px;
   min-height: 10vh;
-  font-size: 1.5em;
+  font-size: 1em;
   padding: 20px;
   overflow-y: hidden;
   display: flex;
@@ -406,5 +424,8 @@ td {
   .answer-button {
     width: 40%;
     font-size: 2em;
+  }
+  #start-button{
+    margin-left: 130px;
   }
 }
