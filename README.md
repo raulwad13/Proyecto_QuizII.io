@@ -1,55 +1,44 @@
-# # Quiz Project II
+# Quiz II: El retorno 🎮
 
-![Arcade Quiz](https://img.freepik.com/psd-premium/efecto-texto-videojuego_23-2150702923.jpg)
+Quiz arcade sobre videojuegos desarrollado como proyecto educativo por **Raul Awad y Alejandro Sanchez**.
 
-This project is a quiz game about video games developed by Raul Awad and Alejandro Sanchez. The game has a retro arcade style and uses web technologies like HTML, CSS, JavaScript, and Firebase to create a fun and challenging experience.
+## Funcionalidades
 
-## Key Features
+- Diez preguntas de opción múltiple obtenidas de [Open Trivia DB](https://opentdb.com/).
+- Temporizador de 30 segundos por pregunta y puntuación por rapidez.
+- Registro e inicio de sesión mediante Firebase Authentication.
+- Guardado de resultados y clasificación mediante Cloud Firestore.
+- Gráfica de puntuaciones en la pantalla de inicio, con Chartist.
 
-- **Video Game Questions**: The game features a total of 10 questions related to video games. The questions are provided by an external API and are randomly selected in each round.
+## Cómo jugar
 
-- **Timer Counter**: The game includes a timer that penalizes players for taking too long to respond. The faster you answer, the higher your score.
+1. Abre `home.html` y regístrate o inicia sesión.
+2. Pulsa **Start Game** para comenzar.
+3. Responde las preguntas antes de que termine el tiempo. Si se agota, puedes pasar a la siguiente.
+4. Tras la última pregunta, consulta tu puntuación y el ranking.
 
-- **Scoring System**: Players earn scores based on their speed and accuracy in answering questions.
+## Ejecutar en local
 
-- **Firebase Database**: Player results are stored in a Firebase database. This allows tracking scores and displaying a player ranking.
+Es un proyecto estático con HTML, CSS y JavaScript. No necesita instalar paquetes. Desde la carpeta del repositorio puedes iniciar un servidor local:
 
-- **Score Chart**: Players can view a chart that shows their game progress over time. This provides a clear visualization of their performance.
+```bash
+python -m http.server 8000
+```
 
-- **Player Ranking**: The game displays a ranking of players based on their scores. Players can compete to reach the top spot in the ranking.
+Visita `http://localhost:8000/home.html`.
 
-## How to Play
+**Necesita conexión a Internet** para descargar preguntas y utilizar Firebase. La autenticación, la escritura de resultados y el ranking dependen de que el proyecto Firebase siga activo, sus dominios estén autorizados y sus reglas de seguridad estén configuradas correctamente. No se ha verificado aquí el estado actual de esos servicios.
 
-1. Upon starting the game, players will encounter a series of questions about video games. They must select the correct answer as quickly as possible.
+## Tecnologías
 
-2. The timer starts with each question. If you answer correctly, you'll earn scores. If you take too long or answer incorrectly, your score will be penalized.
+HTML5, CSS3, JavaScript, Open Trivia DB, Firebase Authentication, Cloud Firestore y Chartist.
 
-3. After answering the 10 questions, you'll see your score and can enter your username.
+## Estado y mejoras pendientes
 
-4. Your results are stored in the Firebase database and will be displayed in the player ranking.
+- [x] Corregir la navegación del temporizador y los elementos de resultados.
+- [x] Evitar que el código de la página de inicio actúe sobre otras páginas.
+- [ ] Comprobar manualmente una partida completa y la conexión real a Firebase.
+- [ ] Revisar reglas de seguridad de Firestore y privacidad del ranking.
+- [ ] Mejorar accesibilidad y adaptar la interfaz a distintos tamaños de pantalla.
 
-5. You can track your game progress over time in the score chart.
-
-## Requirements
-
-- Internet Connection: The game uses an external API to obtain questions and a Firebase database to store results, so an internet connection is required to play and save results.
-
-## Setup and Usage
-
-1. Clone the repository and ensure you have a web development environment set up.
-
-2. Open the `home.html` file in your browser to start the game.
-
-3. Complete the game and enjoy the Arcade Quiz experience.
-
-## Acknowledgments
-
-- We'd like to thank Raul Awad and Alejandro Sanchez for creating this fun video game and sharing it with the community.
-
-## Notes
-
-- This project is a non-profit educational and entertainment game.
-
-- If you wish to contribute or make improvements to the game, feel free to do so and share it with the community.
-
-Have fun playing Arcade Quiz and compete to achieve the highest score in the player ranking!
+Proyecto de aprendizaje; no es una aplicación de producción.
