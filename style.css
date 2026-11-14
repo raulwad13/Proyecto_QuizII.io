@@ -477,26 +477,59 @@ main form { width: 100%; max-width: 1100px; margin: 0 auto; }
   #answer-buttons { gap: 16px; }
 }
 
-/* Ajustes finales: centrado y fondo visibles en móvil sin cambiar el diseño arcade. */
-#index, #pag-results { width: 100%; }
-#pag-results { display: flex; flex-direction: column; align-items: center; gap: 16px; }
-#pag-results > * { max-width: 100%; }
-#pag-results #ranking { width: 100%; margin: 0; }
-#ranking-table { width: 100%; border-collapse: collapse; }
-#ranking-table th, #ranking-table td { padding: 10px; overflow-wrap: anywhere; }
-#tarjeta-quiz, #preguntas-y-respuestas, #answer-buttons { min-width: 0; }
-#tarjeta-quiz { justify-content: flex-start; }
-#next-button { flex-shrink: 0; }
-#register-login-section label { display: inline-block; max-width: 100%; }
-#register-login-section input { font-size: 16px; }
-#welcome-user, #score-username, #preguntas-y-respuestas > h3 { overflow-wrap: anywhere; }
+/* Corrección específica del inicio en móvil: sin alterar HTML ni JavaScript. */
+html {
+  min-height: 100%;
+  background: #100c24 url("./assets/portada.avif") center top / cover no-repeat;
+}
+body {
+  background-color: #100c24;
+}
+#index #register-login-section {
+  width: min(100%, 620px);
+  margin-inline: auto;
+}
+#index #register-login-section h2 {
+  width: 100%;
+  margin: 18px 0 12px;
+  padding: 16px 12px;
+  font-size: clamp(1.1rem, 5vw, 1.8rem);
+}
+#index #register-login-section form {
+  width: 100%;
+  margin: 0 0 22px;
+  padding: 20px 16px;
+  gap: 8px;
+  background: rgba(8, 6, 24, 0.84);
+  color: white;
+  border: 3px solid #ea00d9;
+  border-radius: 14px;
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+#index #register-login-section label {
+  display: inline-block;
+  max-width: 100%;
+  font-size: 1rem;
+}
+#index #register-login-section input {
+  display: block;
+  width: min(100%, 360px);
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 11px;
+  font-size: 16px;
+  border-radius: 8px;
+}
+#index #register-login-section input[type="submit"] {
+  margin-top: 8px;
+  background: #ea00d9;
+  border: 2px solid black;
+  color: white;
+  font-weight: bold;
+}
 @media (max-width: 767px) {
-  body { background-position: center top; background-size: cover; }
-  #register-login-section { width: 100%; }
-  #register-login-section form { padding: 16px; }
-  #tarjeta-quiz { min-height: 0; padding: 10px 0; }
-  #answer-buttons { width: 100%; }
-  #next-button { font-size: 1rem; }
-  #ranking { padding: 12px; }
-  #ranking-table th, #ranking-table td { padding: 8px 4px; font-size: .75rem; }
+  body { padding: 12px; }
+  #index #register-login-section form { padding: 16px 12px; }
+  #index #register-login-section h2 { margin-top: 12px; }
 }
