@@ -29,8 +29,16 @@ async function getQuestions() {
 async function startGame() {
   i = 0;
   score = 0;
-  questionsAndAnswers = await getQuestions();
-  console.log(questionsAndAnswers);
+  try {
+    questionsAndAnswers = await getQuestions();
+    if (!Array.isArray(questionsAndAnswers) || questionsAndAnswers.length === 0) {
+      throw new Error("No hay preguntas disponibles");
+    }
+  } catch (error) {
+    document.getElementById("preguntas-y-respuestas").textContent = "No se han podido cargar las preguntas. Recarga la página para intentarlo de nuevo.";
+    document.getElementById("next-button").classList.add("display-none");
+    return;
+  }
   //pintar primera
   printQuestion(questionsAndAnswers);
   checkAnswers();
@@ -38,7 +46,7 @@ async function startGame() {
 }
 function printQuestion(n) {
   let nextButton = document.getElementById("next-button"); //Oculto boton next
-  nextButton.classList.toggle("display-none");
+  nextButton.classList.add("display-none");
   if (questionsAndAnswers && questionsAndAnswers[i]) {
     let answers = [
       n[i].incorrect_answers[0],
@@ -77,13 +85,15 @@ function checkAnswers() {
       if (event.target.innerHTML == questionsAndAnswers[i].correct_answer) {
         event.target.style.backgroundColor = "green";
         score += 100 - sec; //Penalizar score por tardar mucho
+        clearInterval(timer);
         cancelButtons();
         let nextButton = document.getElementById("next-button");
-        nextButton.classList.toggle("display-none"); //Muestro boton next
+        nextButton.classList.remove("display-none"); // Muestro el botón siguiente
       } else if (
         event.target.innerHTML !== questionsAndAnswers[i].correct_answer
       ) {
         event.target.style.backgroundColor = "red";
+        clearInterval(timer);
         cancelButtons();
 
         for (let button of botonesRespuestas) {
@@ -92,13 +102,9 @@ function checkAnswers() {
           }
         }
         let nextButton = document.getElementById("next-button");
-        nextButton.classList.toggle("display-none"); //Muestro boton next
+        nextButton.classList.remove("display-none"); // Muestro el botón siguiente
       }
     });
-  }
-  let timerSection = document.getElementsByClassName("timer-section");
-  if (sec > 10) {
-    timerSection.style.backgroundColor = "yellow";
   }
 }
 function cancelButtons() {
@@ -154,10 +160,15 @@ function getLocalStorage(item) {
 function showScore() {
   let score= document.getElementById("score");
   let username = document.getElementById("score-username");
-  let scores = JSON.parse(localStorage.getItem("Results")).reverse(); //Le doy la vuelta para acceder al ultimo resultado siempre
+  let scores = (JSON.parse(localStorage.getItem("Results") || "[]")).reverse(); //Le doy la vuelta para acceder al ultimo resultado siempre
   console.log(scores);
-  score.innerHTML = scores[0].score;
-  username.innerHTML = `Enhorabuena, ${scores[0].user}!`;
+  if (!scores.length) {
+    score.textContent = "Sin puntuación";
+    username.textContent = "Juega una partida para ver tus resultados.";
+    return;
+  }
+  score.textContent = scores[0].score;
+  username.textContent = `Enhorabuena, ${scores[0].user}!`;
 }
 async function showRanking() {
   let ranking = [];
@@ -174,12 +185,14 @@ async function showRanking() {
     .catch(() => console.log("Error reading user scores"));
   let rankingTable = document.getElementById("ranking-table");
   let rankingPosition = 1;
+  rankingTable.querySelectorAll("tr:not(:first-child)").forEach((fila) => fila.remove());
   ranking.forEach((user) => {
-    rankingTable.innerHTML += `<tr>
-        <td>${rankingPosition}.</td>
-        <td>${user.score}</td>
-        <td>${user.user.slice(0, -10)}</td>
-      </tr>`;
+    // textContent evita interpretar como HTML los nombres de otros jugadores.
+    const fila = rankingTable.insertRow();
+    [rankingPosition + ".", user.score, String(user.user || "")].forEach((dato) => {
+      const celda = fila.insertCell();
+      celda.textContent = dato;
+    });
     rankingPosition++;
   });
 }
@@ -196,9 +209,15 @@ function startTimer() {
     let timerSection = document.getElementById("timer-section");
     if (timerSection) {
       if (sec > 30) {
-        i++;
-        printQuestion(questionsAndAnswers);
-        startTimer();
+        // Al agotarse el tiempo, mostramos la respuesta y dejamos avanzar al jugador.
+        clearInterval(timer);
+        cancelButtons();
+        document.querySelectorAll(".answer-button").forEach((button) => {
+          if (button.innerHTML === questionsAndAnswers[i].correct_answer) {
+            button.style.backgroundColor = "green";
+          }
+        });
+        document.getElementById("next-button").classList.remove("display-none");
       } else if (sec > 19) {
         timerSection.style.backgroundColor = "red";
       } else if (sec > 9) {
@@ -350,7 +369,8 @@ if (window.location.pathname.includes("home.html")) {
 
     let pass2 = event.target.elements.pass2.value;
 
-    pass === pass2 ? signUpUser(email, pass) : alert("error password");
+    if (!email || !pass) return;
+    pass === pass2 ? signUpUser(email, pass) : alert("Las contraseñas no coinciden");
   });
 }
 
@@ -403,6 +423,7 @@ if (window.location.pathname.includes("home.html")) {
         "Introduce una contraseña con al menos 6 caracteres, 1 mayúscula, 1 minúscula y 1 número"
       );
     }
+    if (!email || !pass) return;
     signInUser(email, pass);
   });
   document.getElementById("salir").addEventListener("click", signOut);
@@ -415,6 +436,7 @@ firebase.auth().onAuthStateChanged(function (user) {
     console.log(`Está en el sistema:${user.email} ${user.uid}`);
     localStorage.setItem("Usuario", user.email); //Guardo usuario actual en local storage
     // getGraphData(user.email);
+    if (!document.getElementById("register-login-section")) return;
     printGrafic(user.email);
     document
       .getElementById("register-login-section")
@@ -423,6 +445,7 @@ firebase.auth().onAuthStateChanged(function (user) {
     document.getElementById("welcome-user").innerHTML = `Welcome ${user.email}`;
   } else {
     console.log("no hay usuarios en el sistema");
+    if (!document.getElementById("register-login-section")) return;
     document
       .getElementById("register-login-section")
       .classList.remove("display-none");
@@ -500,4 +523,4 @@ const printGrafic = async (userName) => {
   new Chartist.Line(".ct-chart", data, options);
 };
 
-printGrafic();
+// La gráfica se carga únicamente desde la pantalla de inicio, tras iniciar sesión.
