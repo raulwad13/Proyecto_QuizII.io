@@ -55,15 +55,16 @@
   font-family: "minecraft";
   src: url("./assets/Minecraft.ttf");
 }
-@import url('https://fonts.googleapis.com/css2?family=Sometype+Mono:wght@700&display=swap');
 body {
-  background-image: linear-gradient(rgba(8, 6, 24, 0.42), rgba(8, 6, 24, 0.62)), url("./assets/portada.avif");
+  /* Conservamos la portada original y aclaramos el filtro para que se vea. */
+  background-color: #100c24;
+  background-image: linear-gradient(rgba(8, 6, 24, 0.16), rgba(8, 6, 24, 0.32)), url("./assets/portada.avif");
   background-size: cover;
   min-height: 100vh;
   min-height: 100dvh;
   background-position: center;
   background-repeat: no-repeat;
-  background-attachment: fixed;
+  background-attachment: scroll;
   margin: 0;
   padding: 16px;
   box-sizing: border-box;
@@ -238,14 +239,15 @@ h2 {
 /* Quiz */
 
 form {
-  margin: 20px;
+  margin: 20px auto;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 #tarjeta-quiz {
-  height: 80vh;
+  min-height: 70vh;
+  height: auto;
   margin: 0px;
   padding: 40px;
   width: 92%;
@@ -257,7 +259,7 @@ form {
 
 #preguntas-y-respuestas {
   width: 100%;
-  height: 80vh;
+  height: auto;
   display: flex;
   flex-direction: column;
 }
@@ -283,7 +285,7 @@ form {
 }
 
 #answer-buttons {
-  height: 80vh;
+  height: auto;
   display: flex;
   flex-direction: column;
 }
@@ -297,8 +299,9 @@ form {
   backdrop-filter: blur(10px);
   border: 5px solid black;
   box-shadow: 2px 2px 2px black;
-  height: 25%;
-  margin: 20px;
+  min-height: 72px;
+  height: auto;
+  margin: 12px;
   padding: 20px 50px;
   /* Evitamos una imagen de Discord privada que no puede cargar en la web. */
   border-radius: 20px;
@@ -323,8 +326,8 @@ form {
   backdrop-filter: blur(10px);
   border: 5px solid black;
   box-shadow: 2px 2px 2px black;
-  padding: 50px;
-  width: 50%;
+  padding: 20px;
+  width: min(100%, 380px);
 
 }
 #next-button:hover {
@@ -435,9 +438,6 @@ td {
     width: 40%;
     font-size: 2em;
   }
-  #start-button{
-    margin-left: 130px;
-  }
 }
 /* Ajustes de pantalla pequeña: conservamos el aspecto arcade sin desbordamientos. */
 #register-login-section { max-width: 680px; margin: 0 auto; }
@@ -475,4 +475,28 @@ main form { width: 100%; max-width: 1100px; margin: 0 auto; }
 @media (min-width: 768px) {
   .answer-button { width: 43%; }
   #answer-buttons { gap: 16px; }
+}
+
+/* Ajustes finales: centrado y fondo visibles en móvil sin cambiar el diseño arcade. */
+#index, #pag-results { width: 100%; }
+#pag-results { display: flex; flex-direction: column; align-items: center; gap: 16px; }
+#pag-results > * { max-width: 100%; }
+#pag-results #ranking { width: 100%; margin: 0; }
+#ranking-table { width: 100%; border-collapse: collapse; }
+#ranking-table th, #ranking-table td { padding: 10px; overflow-wrap: anywhere; }
+#tarjeta-quiz, #preguntas-y-respuestas, #answer-buttons { min-width: 0; }
+#tarjeta-quiz { justify-content: flex-start; }
+#next-button { flex-shrink: 0; }
+#register-login-section label { display: inline-block; max-width: 100%; }
+#register-login-section input { font-size: 16px; }
+#welcome-user, #score-username, #preguntas-y-respuestas > h3 { overflow-wrap: anywhere; }
+@media (max-width: 767px) {
+  body { background-position: center top; background-size: cover; }
+  #register-login-section { width: 100%; }
+  #register-login-section form { padding: 16px; }
+  #tarjeta-quiz { min-height: 0; padding: 10px 0; }
+  #answer-buttons { width: 100%; }
+  #next-button { font-size: 1rem; }
+  #ranking { padding: 12px; }
+  #ranking-table th, #ranking-table td { padding: 8px 4px; font-size: .75rem; }
 }
